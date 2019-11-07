@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">BreakOut</string>
-    <string name="exempel">test</string>
+    <string name="exempel" translatable="false">test</string>
+    <string name="hello_blank_fragment" translatable="false">hej</string>
 
 
 </resources>
