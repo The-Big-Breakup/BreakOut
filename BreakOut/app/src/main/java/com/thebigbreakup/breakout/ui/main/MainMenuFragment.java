@@ -13,13 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.thebigbreakup.breakout.R;
+import com.thebigbreakup.breakout.SharedViewModel;
 
-public class MainFragment extends Fragment {
+public class MainMenuFragment extends Fragment {
 
-    private MainViewModel mViewModel;
+    private SharedViewModel mViewModel;
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static MainMenuFragment newInstance() {
+        return new MainMenuFragment();
     }
 
     @Nullable
@@ -32,8 +33,13 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
+        // TODO: Get int value that sets angle from Viewmodel
+
+        // TODO: Make the variables for the ball (Size, Speed, shape etc.)
+
+        //TODO: Make the ball move
+
     }
 
 }

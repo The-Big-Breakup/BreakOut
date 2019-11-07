@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.thebigbreakup.breakout.ui.main.MainFragment;
+import com.thebigbreakup.breakout.ui.main.MainMenuFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,8 +14,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.fragmentContainerID, MainMenuFragment.newInstance())
                     .commitNow();
         }
+
+
+
     }
 }
