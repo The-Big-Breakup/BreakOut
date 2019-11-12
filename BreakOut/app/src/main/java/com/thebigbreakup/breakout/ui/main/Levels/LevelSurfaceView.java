@@ -12,18 +12,22 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     private GameThread thread;
 
+
     public LevelSurfaceView(Context context) {
         super(context);
 
         getHolder().addCallback(this);
+
+        thread = new GameThread(getHolder(), this);
+        setFocusable(true);
     }
-
-
-
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        //TODO: Start GameThread
+        //Set running to true to use in GameThread and start the new thread
+        thread.setRunning(true);
+        thread.start();
+
         //TODO: add LevelOneLayout to add blocks
     }
 
@@ -34,6 +38,20 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+        //Destroy the thread so the game , retry until destroyed
+        boolean retry = true;
+        while (retry) {
+            try {
+                thread.setRunning(false);
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            retry = false;
+        }
+    }
+
+    public void update() {
 
     }
 }
