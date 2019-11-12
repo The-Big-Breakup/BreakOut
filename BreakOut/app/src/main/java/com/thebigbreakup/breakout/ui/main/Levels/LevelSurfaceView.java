@@ -6,11 +6,20 @@ import android.content.Context;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.thebigbreakup.breakout.GameThread;
+
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
+
+    private GameThread thread;
 
     public LevelSurfaceView(Context context) {
         super(context);
+
+        getHolder().addCallback(this);
     }
+
+
+
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
