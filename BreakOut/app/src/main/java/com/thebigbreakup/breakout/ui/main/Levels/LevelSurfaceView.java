@@ -3,15 +3,18 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 
 import android.content.Context;
 
+import android.graphics.BitmapFactory;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.thebigbreakup.breakout.GameThread;
+import com.thebigbreakup.breakout.R;
+import com.thebigbreakup.breakout.sprites.BallSprite;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     private GameThread thread;
-
+    private BallSprite ballSprite;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -24,9 +27,15 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
+
+        ballSprite = new BallSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background));
+
+
         //Set running to true to use in GameThread and start the new thread
         thread.setRunning(true);
         thread.start();
+
+
 
         //TODO: add LevelOneLayout to add blocks
     }
@@ -38,7 +47,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        //Destroy the thread so the game , retry until destroyed
+        //Destroy the thread, retry until destroyed
         boolean retry = true;
         while (retry) {
             try {

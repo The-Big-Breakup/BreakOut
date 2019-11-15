@@ -47,6 +47,10 @@ public class GameThread extends Thread {
         this.running = running;
     }
 
+    public void draw() {
+        levelSurfaceView.update();
+    }
+
     //this is the MainThread for the game
 
     //TODO: Create the canvas from the LevelSurfaceView

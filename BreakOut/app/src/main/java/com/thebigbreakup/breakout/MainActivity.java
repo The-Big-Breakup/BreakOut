@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.thebigbreakup.breakout.ui.main.MainMenuFragment;
+import com.thebigbreakup.breakout.ui.main.Levels.LevelSurfaceView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        setContentView(new LevelSurfaceView(this));
+
+        /*
         setContentView(R.layout.main_activity);
 
         if (savedInstanceState == null) {
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
                     .commitNow();
         }
 
+
+         */
 
 
     }
