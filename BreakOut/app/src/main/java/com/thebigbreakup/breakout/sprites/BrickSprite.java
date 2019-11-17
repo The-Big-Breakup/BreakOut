@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 public class BrickSprite {
 
     private Bitmap image;
+    private Canvas canvas;
     private int xPos, yPos, rewardPoints;
     private boolean destroyed = false;
 
@@ -27,9 +28,9 @@ public class BrickSprite {
     }
 
     // If the Brick is not destroyed - draw the Brick
-    public void draw(Canvas canvas) {
+    public void draw() {
         if(!destroyed) {
-            canvas.drawBitmap(this.image, this.xPos, this.yPos, null);
+            this.canvas.drawBitmap(this.image, this.xPos, this.yPos, null);
         }
     }
 
