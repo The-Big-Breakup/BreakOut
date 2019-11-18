@@ -20,6 +20,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     private GameThread thread;
     private BallSprite ballSprite;
+    private BallSprite boll;
+    private int x = 10;
+    private int y = 20;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -43,7 +46,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        ballSprite = new BallSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+        ballSprite = new BallSprite(700, 300);
+        boll = new BallSprite(100, 600);
+        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ballpng));
+        boll.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
     }
 
     @Override
@@ -62,7 +68,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void update() {
-        ballSprite.update();
+        ballSprite.move(this.x, this.y);
+        boll.move(10, 10);
     }
 
     @Override
@@ -72,8 +79,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             //Set image/graphics for the ball and draw on canvas
 
-            ballSprite.draw(canvas);
-
+            ballSprite.drawBall(canvas);
+            boll.drawBall(canvas);
         }
     }
 }
