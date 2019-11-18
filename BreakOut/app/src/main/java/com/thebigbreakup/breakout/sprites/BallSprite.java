@@ -23,7 +23,7 @@ public class BallSprite {
         }
 
         if(keepyDirection = false){
-            x *= -1;
+            y *= -1;
         }
 
         while((screenWidth > xPosition && xPosition > 0 || x != 0)){ //detects collision
@@ -56,21 +56,21 @@ public class BallSprite {
                 yPosition++;
                 y--;
                 if (isFilled(yPosition)) {
-                    collideX();
+                    collideY();
                 }
             }
             else if (y > 0){// ändra så att undre delen av skärmen triggar 'lose'
                 yPosition--;
                 y++;
                 if (isFilled(yPosition)) {
-                    collideX();
+                    collideY();
                 }
             }
         }
 
         yPosition += y * -1;
 
-        if(x != 0){
+        if(y != 0){
             keepyDirection = false;
         }else {
             keepyDirection = true;
