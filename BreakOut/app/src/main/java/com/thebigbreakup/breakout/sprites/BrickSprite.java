@@ -10,7 +10,7 @@ public class BrickSprite {
 
     private Bitmap image;
     private Canvas canvas;
-    private int xPos, yPos, rewardPoints;
+    private int xPos, yPos, width, height, rewardPoints;
     private boolean destroyed = false;
 
     /**
@@ -24,6 +24,8 @@ public class BrickSprite {
         this.image = image;
         this.xPos = xPos;
         this.yPos = yPos;
+        this.width = image.getWidth();
+        this.height = image.getHeight();
         this.rewardPoints = rewardPoints;
     }
 
@@ -56,6 +58,14 @@ public class BrickSprite {
 
     public void setyPos(int yPos) {
         this.yPos = yPos;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public int getRewardPoints() {
