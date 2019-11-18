@@ -1,6 +1,7 @@
 package com.thebigbreakup.breakout.sprites;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -23,6 +24,7 @@ private float x;
 private float y;
 private float paddleSpeed;
 private int paddleMoving = stopped;
+private Canvas canvas;
 
 public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     this.width = bmPlayer.getWidth();
