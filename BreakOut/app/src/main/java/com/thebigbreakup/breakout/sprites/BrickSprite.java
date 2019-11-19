@@ -4,12 +4,15 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import androidx.constraintlayout.solver.widgets.Rectangle;
+
 /**
  * A class that represents a Brick in the game
  */
 public class BrickSprite {
 
     private Bitmap image;
+    private Rectangle bounds;
     private int xPos, yPos, width, height, rewardPoints;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -31,6 +34,9 @@ public class BrickSprite {
         this.height = screenHeight / 40; // set brick height depending on screenheight
         this.rewardPoints = rewardPoints;
 
+        // set bounds for the brick
+        this.bounds = new Rectangle();
+        bounds.setBounds(xPos, yPos, this.width, this.height);
 
         // scale the bitmap image to the dynamically generated width/height
         this.image = Bitmap.createScaledBitmap(image, this.width, this.height, false);
@@ -75,6 +81,10 @@ public class BrickSprite {
         return height;
     }
 
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
     public int getRewardPoints() {
         return rewardPoints;
     }
@@ -86,11 +96,5 @@ public class BrickSprite {
     public boolean isDestroyed() {
         return destroyed;
     }
-
-    //TODO: Add Values(DestroyValuePoints etc) and size
-    //TODO: Add collision event (Remove the block etc.)
-
-    //TODO: make a shape and load it here to set design
-
 
 }
