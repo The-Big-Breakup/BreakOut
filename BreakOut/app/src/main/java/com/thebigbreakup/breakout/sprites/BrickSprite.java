@@ -10,7 +10,6 @@ import android.graphics.Canvas;
 public class BrickSprite {
 
     private Bitmap image;
-    private Canvas canvas;
     private int xPos, yPos, width, height, rewardPoints;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -32,15 +31,15 @@ public class BrickSprite {
         this.height = screenHeight / 40; // set brick height depending on screenheight
         this.rewardPoints = rewardPoints;
 
+
         // scale the bitmap image to the dynamically generated width/height
         this.image = Bitmap.createScaledBitmap(image, this.width, this.height, false);
-        this.image.recycle(); // for better memory performance
     }
 
     // If the Brick is not destroyed - draw the Brick
-    public void draw() {
+    public void draw(Canvas canvas) {
         if(!destroyed) {
-            this.canvas.drawBitmap(this.image, this.xPos, this.yPos, null);
+            canvas.drawBitmap(this.image, this.xPos, this.yPos, null);
         }
     }
 
