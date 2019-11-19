@@ -3,6 +3,7 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 
 import android.content.Context;
 
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -22,7 +23,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private GameThread thread;
     private BallSprite ballSprite;
     private BallSprite boll;
-    private BrickSprite brick1;
+    private BrickSprite[] bricks;
     private int x = 10;
     private int y = 20;
 
@@ -48,7 +49,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        brick1 = new BrickSprite(BitmapFactory.decodeResource(getResources(), R.drawable.brick), 200, 500, 10);
+
+        LevelOneLayout levelOneLayout = new LevelOneLayout();
+        bricks = levelOneLayout.getBricks(getResources());
 
         ballSprite = new BallSprite(700, 300);
         boll = new BallSprite(100, 600);
@@ -83,7 +86,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             //Set image/graphics for the ball and draw on canvas
 
-            brick1.draw(canvas);
+            for(int i = 0; i < bricks.length; i++) {
+                bricks[i].draw(canvas);
+            }
+
             ballSprite.drawBall(canvas);
             boll.drawBall(canvas);
         }
