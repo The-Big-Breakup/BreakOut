@@ -4,95 +4,106 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.Log;
 
 public class BallSprite {
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;//subtrahera storleken på bollen från skärmens dimensioner
     private int xPosition = screenWidth/2; //change to canvas as grid, and should initially be returned from the paddle on first tocuh
-    private int yPosition = screenHeight/40;
-    private boolean keepxDirection = true;
-    private boolean keepyDirection = true;
+    private int yPosition = 0;
+    private boolean goRight;
     private Bitmap image;
-    private Canvas canvas;
+    private boolean goDown;
+
+    public BallSprite(int yPos, int xPos) {
+        this.goRight = true;
+        this.goDown = false;
+        this.xPosition = xPos;
+        this.yPosition = yPos;
+    }
 
     public void move(int x, int y) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
 
-        if(keepxDirection = false){
+        if (!this.goRight) {
             x *= -1;
         }
 
-        if(keepyDirection = false){
+        int newX = this.xPosition;
+        if (this.goRight) {
+            for (int i = 0; i <= x; i++) {
+                newX++;
+                if (newX == screenWidth && isFilled(newX)) {
+                    x = collideX(x - i);
+                }
+            }
+            this.xPosition = newX;
+        }
+
+        if (!this.goRight) {
+            for (int i = x; i <= 0; i++) {
+                newX--;
+                if (newX <= 0) {
+                    x = collideX(i + x);
+
+                }
+            }
+            this.xPosition = newX;
+        }
+
+        if (this.goDown) {
             y *= -1;
         }
 
-        while((screenWidth > xPosition && xPosition > 0 || x != 0)){ //detects collision
-            if (x > 0){
-                xPosition++;
-                x--;
-                if (isFilled(xPosition)) {
-                    collideX();
+        int newY = this.yPosition;
+
+        if (!this.goDown) {
+            for (int i = y; i >= 0; i--) {
+                newY--;
+                if (newY <= 200) {
+                    y = collideY(y - i);
                 }
+                Log.d("New x : ", String.valueOf(y));
             }
-            else if (x < 0){
-                xPosition--;
-                x++;
-                if (isFilled(xPosition)) {
-                    collideX();
-                }
-            }
+            this.yPosition = newY;
         }
 
-        xPosition += x * -1;//inverts the remainder to make ball move in opposite direction after collision, varning om x > screenWidth
-
-        if(x != 0){
-            keepxDirection = false;
-        }else {
-            keepxDirection = true;
-        }
-
-        while((screenHeight > yPosition && yPosition > 0 || y != 0)) {
-            if (y < 0){
-                yPosition++;
-                y--;
-                if (isFilled(yPosition)) {
-                    collideY();
+        //Loose
+        if (this.goDown) {
+            for (int i = y; i <= 0; i++) {
+                newY++;
+                if (newY == screenHeight && isFilled(newY)) {
+                    y = collideY(i + y);
                 }
+                Log.d("Old : ", String.valueOf(y));
             }
-            else if (y > 0){// ändra så att undre delen av skärmen triggar 'lose'
-                yPosition--;
-                y++;
-                if (isFilled(yPosition)) {
-                    collideY();
-                }
-            }
+            this.yPosition = newY;
+
         }
-
-        yPosition += y * -1;
-
-        if(y != 0){
-            keepyDirection = false;
-        }else {
-            keepyDirection = true;
-        }
-
-        drawBall(canvas);//här ska canvasen uppdateras
     }
 
     public void drawBall(Canvas canvas) {
-        canvas.drawBitmap(this.image, xPosition, yPosition, null);
+        canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
     }
 
-    private boolean collideX() {
-        return keepxDirection = !keepxDirection;
+    private int collideX(int x) {
+        x *= -1;
+        this.goRight = !this.goRight;
+        return x;
     }
 
-    private boolean collideY() {
-        return keepyDirection = !keepyDirection;
+    private int collideY(int y) {
+        y *= -1;
+        this.goDown = !this.goDown;
+        return y;
     }
 
     private static boolean isFilled(int pixel) {
         return pixel != Color.TRANSPARENT;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     // TODO: Make the variables for the ball (Size, Speed, shape etc.)
