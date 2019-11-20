@@ -52,7 +52,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         ballSprite = new BallSprite(speedY, speedX);
         ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
         paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
-
+        LevelOneLayout levelOneLayout = new LevelOneLayout();
+        bricks = levelOneLayout.getBricks(getResources());
     }
 
     @Override
@@ -87,6 +88,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             ballSprite.drawBall(canvas);
             paddleSprite.drawPaddle(canvas);
+            for(int i = 0; i < bricks.length; i++) {
+                bricks[i].draw(canvas);
+            }
+
 
         }
     }
