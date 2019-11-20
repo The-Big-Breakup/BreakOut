@@ -4,12 +4,8 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 import android.content.Context;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -17,13 +13,6 @@ import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
-
-import java.util.ArrayList;
-
-import java.util.Observable;
-import java.util.Observer;
-
-import static com.thebigbreakup.breakout.GameThread.canvas;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -34,13 +23,6 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int screenHight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 2;
     private int speedY = 1;
-
-    private Observer observer = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-            LevelOneLayout.checkCollision(ballSprite.updateLiveDataX(), ballSprite.updateLiveDataY());
-        }
-    }
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -64,7 +46,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        ballSprite = new BallSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+        ballSprite = new BallSprite(speedY, speedX);
+        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
         paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
 
     }
@@ -102,6 +85,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
     }
 
+    /*
     public void collide(Rect ballRect, Rect brickRect) {
         if(ballRect.intersect(brickRect) || ballRect.contains(brickRect) || brickRect.contains(ballRect)){
             //Collide x or collide y
@@ -116,4 +100,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             }
         }
     }
+
+     */
+
 }

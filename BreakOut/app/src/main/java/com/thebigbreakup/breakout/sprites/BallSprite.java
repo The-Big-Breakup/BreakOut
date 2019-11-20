@@ -6,9 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 public class BallSprite {
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -22,33 +19,6 @@ public class BallSprite {
     private Rect bounds;
     private int newX;
     private int newY;
-    public MutableLiveData getMutable() {
-        return mutable;
-    }
-
-    private MutableLiveData mutable = new MutableLiveData();
-    private LiveData livedata = new LiveData() {
-
-    };
-
-    private Observer observerX = new Observer() {
-        @Override
-        public void onChanged(Object o) {
-
-            if(){
-                collideX(newX);
-            }
-        }
-    };
-
-    private Observer observerY = new Observer() {
-        @Override
-        public void onChanged(Object o) {
-            if(){
-                collideY(newY);
-            }
-        }
-    };
 
     public BallSprite(int yPos, int xPos) {
         this.goRight = true;
@@ -69,8 +39,7 @@ public class BallSprite {
         if (this.goRight) {
             for (int i = 0; i <= x; i++) {
                 newX++;
-                livedata(bounds);
-                if (newX == screenWidth || collide = true){     //&& isFilled(newX)) {
+                if (newX == screenWidth){     //&& isFilled(newX)) {
                     x = collideX(x - i);
                 }
                 updateLiveDataX(newX);
@@ -81,7 +50,7 @@ public class BallSprite {
         if (!this.goRight) {
             for (int i = x; i <= 0; i++) {
                 newX--;
-                if (newX <= 0 || collide = true) {
+                if (newX <= 0) {
                     x = collideX(i + x);
 
                 }
@@ -99,7 +68,7 @@ public class BallSprite {
         if (!this.goDown) {
             for (int i = y; i >= 0; i--) {
                 newY--;
-                if (newY <= 200 || collide = true) {
+                if (newY <= 0) {
                     y = collideY(y - i);
                 }
                 Log.d("New x : ", String.valueOf(y));
@@ -111,7 +80,7 @@ public class BallSprite {
         if (this.goDown) {
             for (int i = y; i <= 0; i++) {
                 newY++;
-                if (newY == screenHeight || collide = true) {
+                if (newY == screenHeight) {
                     y = collideY(i + y);
                 }
                 updateLiveDataY(newY);
