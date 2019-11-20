@@ -3,26 +3,26 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 
 import android.content.Context;
 
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
-
-import static com.thebigbreakup.breakout.GameThread.canvas;
+import com.thebigbreakup.breakout.sprites.PaddleSprite;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     private GameThread thread;
     private BallSprite ballSprite;
-    private BallSprite boll;
-    private int x = 10;
-    private int y = 20;
+    private PaddleSprite paddleSprite;
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int screenHight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private int speedX = 2;
+    private int speedY = 1;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -40,16 +40,16 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         thread.setRunning(true);
         thread.start();
 
-
+        //TODO: add livedata with boolean, x and y
         //TODO: add LevelOneLayout to add blocks
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        ballSprite = new BallSprite(700, 300);
-        boll = new BallSprite(100, 600);
-        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ballpng));
-        boll.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+        ballSprite = new BallSprite(speedY, speedX);
+        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+        paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+
     }
 
     @Override
@@ -68,8 +68,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void update() {
-        ballSprite.move(this.x, this.y);
-        boll.move(10, 10);
+        ballSprite.move(speedX, speedY);
+        //paddleSprite.update(60, screenWidth);
     }
 
     @Override
@@ -80,7 +80,27 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             //Set image/graphics for the ball and draw on canvas
 
             ballSprite.drawBall(canvas);
-            boll.drawBall(canvas);
+            paddleSprite.drawPaddle(canvas);
+
         }
     }
+
+    /*
+    public void collide(Rect ballRect, Rect brickRect) {
+        if(ballRect.intersect(brickRect) || ballRect.contains(brickRect) || brickRect.contains(ballRect)){
+            //Collide x or collide y
+            for (int i = 0; i < ; i++) {
+                
+            }
+            if (collideX) {
+                ballSprite.collideX(ballSprite.getNewX());
+            }
+            else if (collideY) {
+                ballSprite.collideY(ballSprite.getNewY());
+            }
+        }
+    }
+
+     */
+
 }
