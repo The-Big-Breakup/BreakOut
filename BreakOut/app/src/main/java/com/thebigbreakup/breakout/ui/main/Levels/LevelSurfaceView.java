@@ -20,6 +20,9 @@ import com.thebigbreakup.breakout.sprites.PaddleSprite;
 
 import java.util.ArrayList;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import static com.thebigbreakup.breakout.GameThread.canvas;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
@@ -31,6 +34,13 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int screenHight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 2;
     private int speedY = 1;
+
+    private Observer observer = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            LevelOneLayout.checkCollision(ballSprite.updateLiveDataX(), ballSprite.updateLiveDataY());
+        }
+    }
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -48,7 +58,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         thread.setRunning(true);
         thread.start();
 
-
+        //TODO: add livedata with boolean, x and y
         //TODO: add LevelOneLayout to add blocks
     }
 
