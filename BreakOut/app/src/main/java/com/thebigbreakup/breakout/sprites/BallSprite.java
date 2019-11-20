@@ -7,6 +7,9 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 public class BallSprite {
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -14,10 +17,17 @@ public class BallSprite {
     private int xPosition = screenWidth/2; //change to canvas as grid, and should initially be returned from the paddle on first tocuh
     private int yPosition = 0;
     private boolean goRight;
-    private Bitmap image;
     private boolean goDown;
+    private Bitmap image;
     private int ballSide = screenWidth/25;
     private Rect bounds;
+
+    public MutableLiveData getMutable() {
+        return mutable;
+    }
+
+    private MutableLiveData mutable = new MutableLiveData();
+    private LiveData livedata = new LiveData<//gooogla>();
 
     public BallSprite(int yPos, int xPos) {
         this.goRight = true;
@@ -39,9 +49,11 @@ public class BallSprite {
         if (this.goRight) {
             for (int i = 0; i <= x; i++) {
                 newX++;
-                if (newX == screenWidth || this.bounds.intersect(){     //&& isFilled(newX)) {
+                livedata(bounds);
+                if (newX == screenWidth || collide = true){     //&& isFilled(newX)) {
                     x = collideX(x - i);
                 }
+                updateLiveDataX(newX);
             }
             this.xPosition = newX;
         }
@@ -49,10 +61,11 @@ public class BallSprite {
         if (!this.goRight) {
             for (int i = x; i <= 0; i++) {
                 newX--;
-                if (newX <= 0) {
+                if (newX <= 0 || collide = true) {
                     x = collideX(i + x);
 
                 }
+                updateLiveDataX(newX);
             }
             this.xPosition = newX;
         }
@@ -66,7 +79,7 @@ public class BallSprite {
         if (!this.goDown) {
             for (int i = y; i >= 0; i--) {
                 newY--;
-                if (newY <= 200) {
+                if (newY <= 200 || collide = true) {
                     y = collideY(y - i);
                 }
                 Log.d("New x : ", String.valueOf(y));
@@ -78,14 +91,27 @@ public class BallSprite {
         if (this.goDown) {
             for (int i = y; i <= 0; i++) {
                 newY++;
-                if (newY == screenHeight && isFilled(newY)) {
+                if (newY == screenHeight || collide = true) {
                     y = collideY(i + y);
                 }
+                updateLiveDataY(newY);
                 Log.d("Old : ", String.valueOf(y));
             }
             this.yPosition = newY;
 
         }
+    }
+
+    public Rect getBounds() {
+        return bounds;
+    }
+
+    public void updateLiveDataX(int x){
+        collideX(x);
+    }
+
+    public void updateLiveDataY( int y){
+       collideY(y);
     }
 
     public void drawBall(Canvas canvas) {
@@ -111,6 +137,7 @@ public class BallSprite {
     public void setImage(Bitmap image) {
         this.image = image;
     }
+
 
     // TODO: Make the variables for the ball (Size, Speed, shape etc.)
 

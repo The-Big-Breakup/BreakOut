@@ -14,6 +14,9 @@ import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import static com.thebigbreakup.breakout.GameThread.canvas;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
@@ -23,6 +26,13 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private BallSprite boll;
     private int x = 10;
     private int y = 20;
+
+    private Observer observer = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            LevelOneLayout.checkCollision(ballSprite.updateLiveDataX(), ballSprite.updateLiveDataY());
+        }
+    }
 
     public LevelSurfaceView(Context context) {
         super(context);
