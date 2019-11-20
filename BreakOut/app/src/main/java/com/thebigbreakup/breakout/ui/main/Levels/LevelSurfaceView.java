@@ -4,11 +4,8 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 import android.content.Context;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -17,8 +14,6 @@ import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
 
-import static com.thebigbreakup.breakout.GameThread.canvas;
-
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     private GameThread thread;
@@ -26,6 +21,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private PaddleSprite paddleSprite;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private int speedX = 2;
+    private int speedY = 1;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -43,13 +40,14 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         thread.setRunning(true);
         thread.start();
 
-
+        //TODO: add livedata with boolean, x and y
         //TODO: add LevelOneLayout to add blocks
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        ballSprite = new BallSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+        ballSprite = new BallSprite(speedY, speedX);
+        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
         paddleSprite = new PaddleSprite(screenWidth, screenHight, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
     }
 
@@ -69,8 +67,11 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void update() {
-        ballSprite.update();
-        paddleSprite.update(60, screenWidth);
+        if (checkCollision(ballSprite, bricks)) {
+            //TODO somehow tell ball if collision was x or y
+        }
+        ballSprite.move(speedX, speedY);
+        //paddleSprite.update(60, screenWidth);
     }
 
     @Override
@@ -80,9 +81,26 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             //Set image/graphics for the ball and draw on canvas
 
-            ballSprite.draw(canvas);
+            ballSprite.drawBall(canvas);
             paddleSprite.drawPaddle(canvas);
 
         }
+    }
+
+    public boolean checkCollision(BallSprite ball, BrickSprite[] bricks) {
+
+        for (int i = 0; i < bricks.length; i++) {
+            BrickSprite brick = bricks[i];
+            Rect ballBounds = ball.getBounds();
+            Rect brickBounds = brick.getBounds();
+
+            if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
+                brick.destroy();
+                return true;
+            }
+        }
+
+        return false;
+
     }
 }
