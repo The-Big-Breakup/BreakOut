@@ -50,6 +50,19 @@ public class BrickSprite {
         }
     }
 
+    public boolean checkCollision(int pixelX, int pixelY) {
+
+        if (pixelX >= xPos
+                && pixelX <= xPos + width
+                && pixelY >= yPos
+                && pixelY <= yPos + height) {
+            this.destroyed = true;
+            return true;
+        }
+        return false;
+    }
+
+    /*
     public int checkCollision(int pixelX, int pixelY) {
         if(checkCollisionX(pixelX)) {
             this.destroyed = true;
@@ -80,6 +93,8 @@ public class BrickSprite {
         return false;
 
     }
+
+     */
 
     public void setImage(Bitmap image) {
         this.image = image;
