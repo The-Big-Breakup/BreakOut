@@ -34,7 +34,8 @@ public class LevelOneLayout {
         return bricks;
     }
 
-    //TODO: Add blocks
-    // Example: characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(),R.drawable.avdgreen));
+    //TODO observe LiveData from LevelSurfaceView
+    //TODO when LiveData tells that a brick is hit by ball, loop through every brick and call CheckCollision-method
+
 
 }

@@ -3,6 +3,7 @@ package com.thebigbreakup.breakout.sprites;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import androidx.constraintlayout.solver.widgets.Rectangle;
 
@@ -12,7 +13,7 @@ import androidx.constraintlayout.solver.widgets.Rectangle;
 public class BrickSprite {
 
     private Bitmap image;
-    private Rectangle bounds;
+    private Rect bounds;
     private int xPos, yPos, width, height, rewardPoints;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -35,8 +36,8 @@ public class BrickSprite {
         this.rewardPoints = rewardPoints;
 
         // set bounds for the brick
-        this.bounds = new Rectangle();
-        bounds.setBounds(xPos, yPos, this.width, this.height);
+        this.bounds = new Rect();
+        this.bounds.set(xPos, yPos, (xPos + this.width), (yPos + this.height));
 
         // scale the bitmap image to the dynamically generated width/height
         this.image = Bitmap.createScaledBitmap(image, this.width, this.height, false);
@@ -49,8 +50,35 @@ public class BrickSprite {
         }
     }
 
-    public void destroy() {
-        this.destroyed = true;
+    public int checkCollision(int pixelX, int pixelY) {
+        if(checkCollisionX(pixelX)) {
+            this.destroyed = true;
+            return 1;
+        }
+
+        if (checkCollisionY(pixelY)) {
+            this.destroyed = true;
+            return 2;
+        }
+
+        return 0;
+    }
+
+    public boolean checkCollisionX(int pixelX) {
+
+        if (pixelX >= xPos && pixelX <= xPos + width) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkCollisionY(int pixelY) {
+
+        if (pixelY >= yPos && pixelY <= yPos + height) {
+            return true;
+        }
+        return false;
+
     }
 
     public void setImage(Bitmap image) {
@@ -81,7 +109,7 @@ public class BrickSprite {
         return height;
     }
 
-    public Rectangle getBounds() {
+    public Rect getBounds() {
         return bounds;
     }
 
