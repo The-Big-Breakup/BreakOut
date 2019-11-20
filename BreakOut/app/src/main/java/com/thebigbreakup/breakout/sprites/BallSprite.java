@@ -27,7 +27,7 @@ public class BallSprite {
         this.yPosition = yPos;
         this.bounds = new Rect();
         this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
-        this.image = Bitmap.createScaledBitmap(image, ballSide, ballSide, false);
+        //this.image = Bitmap.createScaledBitmap(image, ballSide, ballSide, false);
     }
 
     public void move(int x, int y) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
