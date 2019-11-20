@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
+import com.thebigbreakup.breakout.sprites.PaddleSprite;
 
 import static com.thebigbreakup.breakout.GameThread.canvas;
 
@@ -20,6 +21,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     private GameThread thread;
     private BallSprite ballSprite;
+    private PaddleSprite paddle;
 
     public LevelSurfaceView(Context context) {
         super(context);

@@ -1,12 +1,18 @@
 package com.thebigbreakup.breakout.sprites;
 
+import android.app.ActionBar;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
-public class PaddleSprite {
+import com.thebigbreakup.breakout.R;
+
+public class PaddleSprite implements View.OnTouchListener {
 
 
 
@@ -133,5 +139,20 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     public int getY() {
         return y;
     }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        v.getId();
+        switch(event.getAction()& MotionEvent.ACTION_MASK){
+            case MotionEvent.ACTION_DOWN:
+                break;
+
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        return true;
+    }
+    
+
 
 }
