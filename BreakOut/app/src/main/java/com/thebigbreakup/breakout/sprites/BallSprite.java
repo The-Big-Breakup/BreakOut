@@ -6,12 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 public class BallSprite {
-
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;//subtrahera storleken på bollen från skärmens dimensioner
     private int xPosition = screenWidth/2; //change to canvas as grid, and should initially be returned from the paddle on first tocuh
@@ -21,13 +20,35 @@ public class BallSprite {
     private Bitmap image;
     private int ballSide = screenWidth/25;
     private Rect bounds;
-
+    private int newX;
+    private int newY;
     public MutableLiveData getMutable() {
         return mutable;
     }
 
     private MutableLiveData mutable = new MutableLiveData();
-    private LiveData livedata = new LiveData<//gooogla>();
+    private LiveData livedata = new LiveData() {
+
+    };
+
+    private Observer observerX = new Observer() {
+        @Override
+        public void onChanged(Object o) {
+
+            if(){
+                collideX(newX);
+            }
+        }
+    };
+
+    private Observer observerY = new Observer() {
+        @Override
+        public void onChanged(Object o) {
+            if(){
+                collideY(newY);
+            }
+        }
+    };
 
     public BallSprite(int yPos, int xPos) {
         this.goRight = true;
@@ -44,8 +65,7 @@ public class BallSprite {
         if (!this.goRight) {
             x *= -1;
         }
-
-        int newX = this.xPosition;
+        newX = this.xPosition;
         if (this.goRight) {
             for (int i = 0; i <= x; i++) {
                 newX++;
@@ -74,7 +94,7 @@ public class BallSprite {
             y *= -1;
         }
 
-        int newY = this.yPosition;
+        newY = this.yPosition;
 
         if (!this.goDown) {
             for (int i = y; i >= 0; i--) {
@@ -102,6 +122,14 @@ public class BallSprite {
         }
     }
 
+    public int getNewX() {
+        return newX;
+    }
+
+    public int getNewY() {
+        return newY;
+    }
+
     public Rect getBounds() {
         return bounds;
     }
@@ -118,13 +146,13 @@ public class BallSprite {
         canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
     }
 
-    private int collideX(int x) {
+    public int collideX(int x) {
         x *= -1;
         this.goRight = !this.goRight;
         return x;
     }
 
-    private int collideY(int y) {
+    public int collideY(int y) {
         y *= -1;
         this.goDown = !this.goDown;
         return y;
