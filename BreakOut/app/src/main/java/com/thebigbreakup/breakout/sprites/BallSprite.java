@@ -86,13 +86,13 @@ public class BallSprite {
         canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
     }
 
-    private int collideX(int x) {
+    public int collideX(int x) {
         x *= -1;
         this.goRight = !this.goRight;
         return x;
     }
 
-    private int collideY(int y) {
+    public int collideY(int y) {
         y *= -1;
         this.goDown = !this.goDown;
         return y;
