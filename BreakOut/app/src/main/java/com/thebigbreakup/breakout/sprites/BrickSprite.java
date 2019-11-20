@@ -96,6 +96,10 @@ public class BrickSprite {
 
      */
 
+    public void destroy() {
+        this.destroyed = true;
+    }
+
     public void setImage(Bitmap image) {
         this.image = image;
     }

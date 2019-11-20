@@ -68,6 +68,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void update() {
+        if (checkCollision(ballSprite, bricks)) {
+            //TODO somehow tell ball if collision was x or y
+        }
         ballSprite.move(speedX, speedY);
         //paddleSprite.update(60, screenWidth);
     }
@@ -85,22 +88,20 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
     }
 
-    /*
-    public void collide(Rect ballRect, Rect brickRect) {
-        if(ballRect.intersect(brickRect) || ballRect.contains(brickRect) || brickRect.contains(ballRect)){
-            //Collide x or collide y
-            for (int i = 0; i < ; i++) {
-                
-            }
-            if (collideX) {
-                ballSprite.collideX(ballSprite.getNewX());
-            }
-            else if (collideY) {
-                ballSprite.collideY(ballSprite.getNewY());
+    public boolean checkCollision(BallSprite ball, BrickSprite[] bricks) {
+
+        for (int i = 0; i < bricks.length; i++) {
+            BrickSprite brick = bricks[i];
+            Rect ballBounds = ball.getBounds();
+            Rect brickBounds = brick.getBounds();
+
+            if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
+                brick.destroy();
+                return true;
             }
         }
+
+        return false;
+
     }
-
-     */
-
 }
