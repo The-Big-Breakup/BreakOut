@@ -3,17 +3,15 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 
 import android.content.Context;
 
-//import android.content.res.Resources;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
-import com.thebigbreakup.breakout.sprites.BrickSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
@@ -21,11 +19,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private GameThread thread;
     private BallSprite ballSprite;
     private PaddleSprite paddleSprite;
-    //private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    //private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int screenHight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 2;
     private int speedY = 1;
-    private BrickSprite[] bricks;
 
     public LevelSurfaceView(Context context) {
         super(context);
