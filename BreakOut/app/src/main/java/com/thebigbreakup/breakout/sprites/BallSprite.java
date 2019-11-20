@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.Log;
 
 public class BallSprite {
@@ -15,12 +16,17 @@ public class BallSprite {
     private boolean goRight;
     private Bitmap image;
     private boolean goDown;
+    private int ballSide = screenWidth/25;
+    private Rect bounds;
 
     public BallSprite(int yPos, int xPos) {
         this.goRight = true;
         this.goDown = false;
         this.xPosition = xPos;
         this.yPosition = yPos;
+        this.bounds = new Rect();
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
+        this.image = Bitmap.createScaledBitmap(image, ballSide, ballSide, false);
     }
 
     public void move(int x, int y) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
@@ -33,7 +39,7 @@ public class BallSprite {
         if (this.goRight) {
             for (int i = 0; i <= x; i++) {
                 newX++;
-                if (newX == screenWidth && isFilled(newX)) {
+                if (newX == screenWidth || this.bounds.intersect(){     //&& isFilled(newX)) {
                     x = collideX(x - i);
                 }
             }
