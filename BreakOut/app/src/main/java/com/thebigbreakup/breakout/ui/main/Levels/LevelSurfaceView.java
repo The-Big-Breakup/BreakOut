@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -77,6 +78,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     public void update() {
         ballSprite.move(this.x, this.y);
         boll.move(10, 10);
+
+        if (checkCollision(ballSprite, bricks)) {
+            //TODO somehow tell ball if collision was x or y
+        }
     }
 
     @Override
@@ -93,5 +98,22 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             ballSprite.drawBall(canvas);
             boll.drawBall(canvas);
         }
+    }
+
+    public boolean checkCollision(BallSprite ball, BrickSprite[] bricks) {
+
+        for (int i = 0; i < bricks.length; i++) {
+            BrickSprite brick = bricks[i];
+            Rect ballBounds = ball.getBounds();
+            Rect brickBounds = brick.getBounds();
+
+            if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
+                brick.destroy();
+                return true;
+            }
+        }
+
+        return false;
+
     }
 }
