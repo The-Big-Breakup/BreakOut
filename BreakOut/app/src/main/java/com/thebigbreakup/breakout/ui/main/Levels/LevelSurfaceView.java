@@ -5,6 +5,7 @@ import android.content.Context;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
+import com.thebigbreakup.breakout.sprites.BrickSprite;
 
 import static com.thebigbreakup.breakout.GameThread.canvas;
 
@@ -26,6 +28,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private PaddleSprite paddleSprite;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private BallSprite boll;
+    private BrickSprite[] bricks;
+    private int x = 10;
+    private int y = 20;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -51,6 +57,14 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
         ballSprite = new BallSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
         paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+
+        LevelOneLayout levelOneLayout = new LevelOneLayout();
+        bricks = levelOneLayout.getBricks(getResources());
+
+        ballSprite = new BallSprite(700, 300);
+        boll = new BallSprite(100, 600);
+        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ballpng));
+        boll.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
     }
 
     @Override
@@ -71,6 +85,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     public void update() {
         ballSprite.update();
         paddleSprite.update(60, screenWidth);
+        ballSprite.move(this.x, this.y);
+        boll.move(10, 10);
     }
 
     @Override
@@ -82,7 +98,12 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             ballSprite.draw(canvas);
             paddleSprite.drawPaddle(canvas);
+            for(int i = 0; i < bricks.length; i++) {
+                bricks[i].draw(canvas);
+            }
 
+            ballSprite.drawBall(canvas);
+            boll.drawBall(canvas);
         }
     }
 }
