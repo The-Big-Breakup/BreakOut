@@ -3,18 +3,29 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 
 import android.content.Context;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
+import com.thebigbreakup.breakout.sprites.PaddleSprite;
+
+import static com.thebigbreakup.breakout.GameThread.canvas;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     private GameThread thread;
     private BallSprite ballSprite;
+    private PaddleSprite paddleSprite;
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int screenHight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -28,13 +39,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
 
-        ballSprite = new BallSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background));
-
-
         //Set running to true to use in GameThread and start the new thread
         thread.setRunning(true);
         thread.start();
-
 
 
         //TODO: add LevelOneLayout to add blocks
@@ -42,7 +49,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
+        ballSprite = new BallSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+        paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
     }
 
     @Override
@@ -61,6 +69,20 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void update() {
+        ballSprite.update();
+        paddleSprite.update(60, screenWidth);
+    }
 
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        if (canvas != null) {
+
+            //Set image/graphics for the ball and draw on canvas
+
+            ballSprite.draw(canvas);
+            paddleSprite.drawPaddle(canvas);
+
+        }
     }
 }
