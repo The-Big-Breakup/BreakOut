@@ -83,10 +83,12 @@ public int paddleCollision(int x,int y) {
 
 
 public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
-    this.width = bmPlayer.getWidth();
-    this.height = bmPlayer.getHeight();
+    Bitmap image = bmPlayer;
+    this.width = image.getWidth();
+    this.height = image.getHeight();
     this.x = (screenX/2)-(width/2);
     this.y = screenY-height;
+
 
 
     //height = 20;
@@ -99,7 +101,6 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     this.paddleSpeed = 350;
 
 
-     drawPaddle(canvas); // update paddle
 
 }
 
