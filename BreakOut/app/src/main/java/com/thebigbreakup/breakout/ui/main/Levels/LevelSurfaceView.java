@@ -48,8 +48,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
         ballSprite = new BallSprite(speedY, speedX);
         ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
-        paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
-
+        paddleSprite = new PaddleSprite(screenWidth, screenHight, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
     }
 
     @Override
