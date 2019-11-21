@@ -75,12 +75,14 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         ballSprite.moveX(speedX);
         if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertXDirection();
+            //destroy current brick
         }
 
 
         ballSprite.moveY(speedY);
         if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertYDirection();
+            //destroy current brick
         }
 
 
