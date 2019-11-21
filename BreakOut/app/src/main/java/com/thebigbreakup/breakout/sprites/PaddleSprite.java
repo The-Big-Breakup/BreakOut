@@ -119,6 +119,13 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
          x = x + paddleSpeed/fps;
      }
 
+     if(rect.left<0){
+         x=0;
+     }
+        if (rect.right > screenX) {
+        x= (int) (screenX-(rect.right-rect.left));
+        }
+
      rect.left = x;
      rect.right = x + width;
 }
