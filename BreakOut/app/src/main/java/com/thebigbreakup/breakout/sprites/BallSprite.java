@@ -3,146 +3,143 @@ package com.thebigbreakup.breakout.sprites;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.util.Log;
 
+/**
+ * A class to create an animated ball object that moves on the canvas
+ */
 public class BallSprite {
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;//subtrahera storleken på bollen från skärmens dimensioner
-    private int xPosition = screenWidth/2; //change to canvas as grid, and should initially be returned from the paddle on first tocuh
-    private int yPosition = 0;
-    private boolean goRight;
-    private boolean goDown;
+    private int xPosition;
+    private int yPosition;
+    private boolean xDirLeft;
+    private boolean yDirUp;
     private Bitmap image;
-    private int ballSide = screenWidth/25;
+    private int ballScaleFactor = 25;
+    private int ballSide = screenWidth/ballScaleFactor;
     private Rect bounds;
-    private int newX;
-    private int newY;
 
+    /**
+     * Create the ball and set the starting position on the screen
+     * @param yPos The y-position on the screen in pixels
+     * @param xPos The x-position on the screen in pixels
+     */
     public BallSprite(int yPos, int xPos) {
-        this.goRight = true;
-        this.goDown = false;
+        this.xDirLeft = true;
+        this.yDirUp = true;
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.bounds = new Rect();
         this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
-        //this.image = Bitmap.createScaledBitmap(image, ballSide, ballSide, false);
     }
 
-    public void move(int x, int y) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
+    private int invertSpeed(int speed) {
+        return speed *= -1;
+    }
 
-        if (!this.goRight) {
-            x *= -1;
+    /**
+     * Checks if the ball collides with the top or bottom of the screen
+     */
+    private int checkCollideY(int speed) {
+        if (yPosition >= screenHeight || yPosition <= 0) {
+            invertYDirection();
+            return speed = invertSpeed(speed);
         }
-        newX = this.xPosition;
-        if (this.goRight) {
-            for (int i = 0; i <= x; i++) {
-                newX++;
-                if (newX == screenWidth){     //&& isFilled(newX)) {
-                    x = collideX(x - i);
-                }
-                updateLiveDataX(newX);
-            }
-            this.xPosition = newX;
-        }
-
-        if (!this.goRight) {
-            for (int i = x; i <= 0; i++) {
-                newX--;
-                if (newX <= 0) {
-                    x = collideX(i + x);
-
-                }
-                updateLiveDataX(newX);
-            }
-            this.xPosition = newX;
-        }
-
-        if (this.goDown) {
-            y *= -1;
-        }
-
-        newY = this.yPosition;
-
-        if (!this.goDown) {
-            for (int i = y; i >= 0; i--) {
-                newY--;
-                if (newY <= 0) {
-                    y = collideY(y - i);
-                }
-                Log.d("New x : ", String.valueOf(y));
-            }
-            this.yPosition = newY;
-        }
-
-        //Loose
-        if (this.goDown) {
-            for (int i = y; i <= 0; i++) {
-                newY++;
-                if (newY == screenHeight) {
-                    y = collideY(i + y);
-                }
-                updateLiveDataY(newY);
-                Log.d("Old : ", String.valueOf(y));
-            }
-            this.yPosition = newY;
-
+        else {
+            return speed;
         }
     }
 
-    public int getNewX() {
-        return newX;
+    /**
+     * Checks if the ball collides with the sides of the screen
+     */
+    private int checkCollideX(int speed) {
+        if (xPosition >= screenWidth || xPosition <= 0) {
+            invertXDirection();
+            return speed = invertSpeed(speed);
+        }
+        else {
+            return speed;
+        }
     }
 
-    public int getNewY() {
-        return newY;
+    /**
+     * Inverts the direction of the ball in X
+     */
+    public void invertXDirection() {
+        xDirLeft = !xDirLeft;
     }
 
+    /**
+     * Inverts the direction of the ball in Y
+     */
+    public void invertYDirection() {
+        yDirUp= !yDirUp;
+    }
+
+    /**
+     * Move the ball in X and run checkCollideX
+     * @param speedX The amount of pixels to move in one frame
+     */
+    public void moveX(int speedX) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
+
+        if (xDirLeft) {
+            speedX = invertSpeed(speedX);
+        }
+
+        speedX = checkCollideX(speedX);
+
+        xPosition += speedX;
+
+    }
+
+    /**
+     * Move the ball in Y and run checkCollideY
+     * @param speedY The amount of pixels to move in one frame
+     */
+    public void moveY(int speedY) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
+
+        if (yDirUp) {
+            speedY = invertSpeed(speedY);
+        }
+
+        speedY = checkCollideY(speedY);
+
+        yPosition += speedY;
+    }
+
+    /**
+     * Get the Rect to use with intersection
+     * @return
+     */
     public Rect getBounds() {
         return bounds;
     }
 
-    public void updateLiveDataX(int x){
-        collideX(x);
-    }
-
-    public void updateLiveDataY( int y){
-       collideY(y);
-    }
-
+    /**
+     * Draw the ball to canvas
+     * @param canvas
+     */
     public void drawBall(Canvas canvas) {
         canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
     }
 
-    public int collideX(int x) {
-        x *= -1;
-        this.goRight = !this.goRight;
-        return x;
-    }
-
-    public int collideY(int y) {
-        y *= -1;
-        this.goDown = !this.goDown;
-        return y;
-    }
-
-    private static boolean isFilled(int pixel) {
-        return pixel != Color.TRANSPARENT;
-    }
-
+    /**
+     * Set the image/sprite of the ball and scale to ballScaleFactor
+     * @param image
+     */
     public void setImage(Bitmap image) {
         this.image = image;
+        //make a scaled bitmap from image
+        this.image = Bitmap.createScaledBitmap(image, this.ballSide, this.ballSide, false);
     }
 
-
-    // TODO: Make the variables for the ball (Size, Speed, shape etc.)
-
-    // TODO: Make the ball move
-
-    //TODO: make a shape and load it here to set design
-
-    // TODO: Set a collider
-
-    // TODO: Get int value that sets angle from SharedViewModel
+    /**
+     * Change the size of the ball to a number that divides by screen width
+     * @param ballScaleFactor Integer to divide with screen size
+     */
+    public void setBallScaleFactor(int ballScaleFactor) {
+        this.ballScaleFactor = ballScaleFactor;
+    }
 }
