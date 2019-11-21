@@ -4,6 +4,7 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 import android.content.Context;
 
 //import android.content.res.Resources;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -21,7 +22,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private GameThread thread;
     private BallSprite ballSprite;
     private PaddleSprite paddleSprite;
-    //private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     //private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 50;
     private int speedY = 11;
@@ -85,7 +86,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
 
          */
-        //paddleSprite.update(60, screenWidth);
+        paddleSprite.update(60, screenWidth);
     }
 
     @Override
