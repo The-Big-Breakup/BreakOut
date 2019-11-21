@@ -22,33 +22,6 @@ public class BallSprite {
     private Rect bounds;
     private int newX;
     private int newY;
-    public MutableLiveData getMutable() {
-        return mutable;
-    }
-
-    private MutableLiveData mutable = new MutableLiveData();
-    private LiveData livedata = new LiveData() {
-
-    };
-
-    private Observer observerX = new Observer() {
-        @Override
-        public void onChanged(Object o) {
-
-            if(){
-                collideX(newX);
-            }
-        }
-    };
-
-    private Observer observerY = new Observer() {
-        @Override
-        public void onChanged(Object o) {
-            if(){
-                collideY(newY);
-            }
-        }
-    };
 
     public BallSprite(int yPos, int xPos) {
         this.goRight = true;
@@ -57,35 +30,79 @@ public class BallSprite {
         this.yPosition = yPos;
         this.bounds = new Rect();
         this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
-        this.image = Bitmap.createScaledBitmap(image, ballSide, ballSide, false);
+    }
+
+    /*
+    private void changePosition(boolean direction, int steps, int position, int screenSpan) {
+        if (!direction) {
+            steps *= -1;
+        }
+        position += steps;
+        if (position == screenSpan) {
+            direction = !direction;
+        }
+    }
+
+    public boolean collide(boolean direction) {
+        return direction = !direction;
+    }
+
+
+    for (int i = 0; i <= Math.abs(steps); i++) {
+        newPosition++;
+    }
+
+     */
+
+    public void invertY() {
+        yPosition *= -1;
+    }
+
+    public void invertX() {
+        xPosition *= -1;
+    }
+
+    public void checkCollide() {
+        if (xPosition >= screenWidth || xPosition <= 0) {
+            invertX();
+        }
+        else if (yPosition >= screenHeight || yPosition <= 0) {
+            invertY();
+        }
     }
 
     public void move(int x, int y) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
 
+        checkCollide();
+
+        xPosition += x;
+        yPosition += y;
+
+        /*
+
         if (!this.goRight) {
             x *= -1;
         }
+
+
         newX = this.xPosition;
         if (this.goRight) {
             for (int i = 0; i <= x; i++) {
                 newX++;
-                livedata(bounds);
-                if (newX == screenWidth || collide = true){     //&& isFilled(newX)) {
+                if (newX == screenWidth){     //&& isFilled(newX)) {
                     x = collideX(x - i);
                 }
-                updateLiveDataX(newX);
             }
             this.xPosition = newX;
         }
 
+
         if (!this.goRight) {
             for (int i = x; i <= 0; i++) {
                 newX--;
-                if (newX <= 0 || collide = true) {
-                    x = collideX(i + x);
-
+                if (newX <= 0) {
+                    x = collideX(x + i);
                 }
-                updateLiveDataX(newX);
             }
             this.xPosition = newX;
         }
@@ -95,58 +112,37 @@ public class BallSprite {
         }
 
         newY = this.yPosition;
-
         if (!this.goDown) {
             for (int i = y; i >= 0; i--) {
                 newY--;
-                if (newY <= 200 || collide = true) {
+                if (newY <= 200) {
                     y = collideY(y - i);
                 }
-                Log.d("New x : ", String.valueOf(y));
             }
             this.yPosition = newY;
         }
 
-        //Loose
+        //Lose
         if (this.goDown) {
             for (int i = y; i <= 0; i++) {
                 newY++;
-                if (newY == screenHeight || collide = true) {
+                if (newY == screenHeight) {
                     y = collideY(i + y);
                 }
-                updateLiveDataY(newY);
-                Log.d("Old : ", String.valueOf(y));
             }
             this.yPosition = newY;
-
         }
-    }
 
-    public int getNewX() {
-        return newX;
-    }
-
-    public int getNewY() {
-        return newY;
-    }
-
-    public Rect getBounds() {
-        return bounds;
-    }
-
-    public void updateLiveDataX(int x){
-        collideX(x);
-    }
-
-    public void updateLiveDataY( int y){
-       collideY(y);
+         */
     }
 
     public void drawBall(Canvas canvas) {
         canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
     }
 
-    public int collideX(int x) {
+    /*
+
+    public int collideY(int x) {
         x *= -1;
         this.goRight = !this.goRight;
         return x;
@@ -158,9 +154,7 @@ public class BallSprite {
         return y;
     }
 
-    private static boolean isFilled(int pixel) {
-        return pixel != Color.TRANSPARENT;
-    }
+     */
 
     public void setImage(Bitmap image) {
         this.image = image;

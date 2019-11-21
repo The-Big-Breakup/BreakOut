@@ -27,13 +27,6 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int x = 10;
     private int y = 20;
 
-    private Observer observer = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-            LevelOneLayout.checkCollision(ballSprite.updateLiveDataX(), ballSprite.updateLiveDataY());
-        }
-    }
-
     public LevelSurfaceView(Context context) {
         super(context);
 
