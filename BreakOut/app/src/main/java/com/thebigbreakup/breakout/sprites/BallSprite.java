@@ -6,9 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 public class BallSprite {
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -115,7 +112,7 @@ public class BallSprite {
         if (!this.goDown) {
             for (int i = y; i >= 0; i--) {
                 newY--;
-                if (newY <= 200) {
+                if (newY <= 0) {
                     y = collideY(y - i);
                 }
             }
