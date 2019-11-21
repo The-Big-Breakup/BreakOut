@@ -87,7 +87,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     this.width = image.getWidth();
     this.height = image.getHeight();
     this.x = (screenX/2)-(width/2);
-    this.y = screenY-height;
+    this.y = screenY-(height/40);
 
 
 
@@ -128,7 +128,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
 
      rect.left = x;
      rect.right = x + width;
-}
+    }
     public RectF getRect(){
         return rect;
     }
