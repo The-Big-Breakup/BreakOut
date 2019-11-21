@@ -74,15 +74,16 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     public void update() {
         ballSprite.moveX(speedX);
-        /*if (checkCollision(ballSprite, bricks)) {
+        if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertXDirection();
+            //destroy current brick
         }
 
-         */
 
         ballSprite.moveY(speedY);
-        /*if (checkCollision(ballSprite, bricks)) {
+        if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertYDirection();
+            //destroy current brick
         }
 
          */
@@ -113,7 +114,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             Rect ballBounds = ball.getBounds();
             Rect brickBounds = brick.getBounds();
 
-            if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
+            if (ballSprite.getBounds().intersect(brickBounds) || ballSprite.getBounds().contains(brickBounds) || brickBounds.contains(ballSprite.getBounds())) {
                 brick.destroy();
                 return true;
             }
