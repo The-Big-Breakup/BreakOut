@@ -1,25 +1,138 @@
 package com.thebigbreakup.breakout.sprites;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.util.Log;
 
 public class BallSprite {
-
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;//subtrahera storleken på bollen från skärmens dimensioner
+    private int xPosition = screenWidth/2; //change to canvas as grid, and should initially be returned from the paddle on first tocuh
+    private int yPosition = 0;
+    private boolean goRight;
+    private boolean goDown;
     private Bitmap image;
-    private int x, y;
+    private int ballSide = screenWidth/25;
+    private Rect bounds;
+    private int newX;
+    private int newY;
 
-    public BallSprite(Bitmap bmp) {
-        image = bmp;
-        x = 100;
-        y = 100;
+    public BallSprite(int yPos, int xPos) {
+        this.goRight = true;
+        this.goDown = false;
+        this.xPosition = xPos;
+        this.yPosition = yPos;
+        this.bounds = new Rect();
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
+        this.image = Bitmap.createScaledBitmap(image, ballSide, ballSide, false);
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, x, y, null);
+    public void move(int x, int y) { //same x and y values must be fed to 'move' continously until brick or paddle changes them by adding/subtracting to a sent variable
+
+        if (!this.goRight) {
+            x *= -1;
+        }
+        newX = this.xPosition;
+        if (this.goRight) {
+            for (int i = 0; i <= x; i++) {
+                newX++;
+                if (newX == screenWidth){     //&& isFilled(newX)) {
+                    x = collideX(x - i);
+                }
+                updateLiveDataX(newX);
+            }
+            this.xPosition = newX;
+        }
+
+        if (!this.goRight) {
+            for (int i = x; i <= 0; i++) {
+                newX--;
+                if (newX <= 0) {
+                    x = collideX(i + x);
+
+                }
+                updateLiveDataX(newX);
+            }
+            this.xPosition = newX;
+        }
+
+        if (this.goDown) {
+            y *= -1;
+        }
+
+        newY = this.yPosition;
+
+        if (!this.goDown) {
+            for (int i = y; i >= 0; i--) {
+                newY--;
+                if (newY <= 0) {
+                    y = collideY(y - i);
+                }
+                Log.d("New x : ", String.valueOf(y));
+            }
+            this.yPosition = newY;
+        }
+
+        //Loose
+        if (this.goDown) {
+            for (int i = y; i <= 0; i++) {
+                newY++;
+                if (newY == screenHeight) {
+                    y = collideY(i + y);
+                }
+                updateLiveDataY(newY);
+                Log.d("Old : ", String.valueOf(y));
+            }
+            this.yPosition = newY;
+
+        }
     }
 
-    public void update() {
-        y++;
+    public int getNewX() {
+        return newX;
+    }
+
+    public int getNewY() {
+        return newY;
+    }
+
+    public Rect getBounds() {
+        return bounds;
+    }
+
+    public void updateLiveDataX(int x){
+        collideX(x);
+    }
+
+    public void updateLiveDataY( int y){
+       collideY(y);
+    }
+
+    public void drawBall(Canvas canvas) {
+        canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
+    }
+
+    public int collideX(int x) {
+        x *= -1;
+        this.goRight = !this.goRight;
+        return x;
+    }
+
+    public int collideY(int y) {
+        y *= -1;
+        this.goDown = !this.goDown;
+        return y;
+    }
+
+    private static boolean isFilled(int pixel) {
+        return pixel != Color.TRANSPARENT;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
 
@@ -30,5 +143,6 @@ public class BallSprite {
     //TODO: make a shape and load it here to set design
 
     // TODO: Set a collider
+
     // TODO: Get int value that sets angle from SharedViewModel
 }
