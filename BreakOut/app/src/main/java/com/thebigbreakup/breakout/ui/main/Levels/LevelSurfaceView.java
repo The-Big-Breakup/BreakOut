@@ -85,8 +85,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             ballSprite.invertYDirection();
             //destroy current brick
         }
-
-         */
+        
         paddleSprite.update(60, screenWidth);
     }
 
