@@ -23,7 +23,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private PaddleSprite paddleSprite;
     //private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     //private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    private int speedX = 20;
+    private int speedX = 50;
     private int speedY = 11;
     private BrickSprite[] bricks;
 
@@ -72,10 +72,19 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void update() {
-        if (checkCollision(ballSprite, bricks)) {
-            //TODO somehow tell ball if collision was x or y
+        ballSprite.moveX(speedX);
+        /*if (checkCollision(ballSprite, bricks)) {
+            ballSprite.invertXDirection();
         }
-        ballSprite.move(speedX, speedY);
+
+         */
+
+        ballSprite.moveY(speedY);
+        /*if (checkCollision(ballSprite, bricks)) {
+            ballSprite.invertYDirection();
+        }
+
+         */
         //paddleSprite.update(60, screenWidth);
     }
 
