@@ -24,8 +24,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private PaddleSprite paddleSprite;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     //private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    private int speedX = 50;
-    private int speedY = 11;
+    private int speedX = 5;
+    private int speedY = 20;
     private BrickSprite[] bricks;
 
     public LevelSurfaceView(Context context) {
@@ -50,7 +50,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        ballSprite = new BallSprite(500, 500);
+        ballSprite = new BallSprite(1000, 500);
         ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
         paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
         LevelOneLayout levelOneLayout = new LevelOneLayout();
@@ -85,8 +85,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             ballSprite.invertYDirection();
             //destroy current brick
         }
-
-         */
+        
         paddleSprite.update(60, screenWidth);
     }
 
@@ -114,7 +113,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             Rect ballBounds = ball.getBounds();
             Rect brickBounds = brick.getBounds();
 
-            if (ballSprite.getBounds().intersect(brickBounds) || ballSprite.getBounds().contains(brickBounds) || brickBounds.contains(ballSprite.getBounds())) {
+            if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
                 brick.destroy();
                 return true;
             }
