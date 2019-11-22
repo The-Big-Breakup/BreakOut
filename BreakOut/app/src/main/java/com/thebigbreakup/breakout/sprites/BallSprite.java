@@ -31,7 +31,6 @@ public class BallSprite {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.bounds = new Rect();
-        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
     }
 
     private int invertSpeed(int speed) {
@@ -92,6 +91,8 @@ public class BallSprite {
 
         xPosition += speedX;
 
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
+
     }
 
     /**
@@ -107,6 +108,8 @@ public class BallSprite {
         speedY = checkCollideY(speedY);
 
         yPosition += speedY;
+
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
     }
 
     /**
@@ -123,7 +126,7 @@ public class BallSprite {
      */
     public void drawBall(Canvas canvas) {
         canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
-        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
+
     }
 
     /**

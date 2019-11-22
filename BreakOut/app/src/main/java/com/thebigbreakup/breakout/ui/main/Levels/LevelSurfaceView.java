@@ -24,8 +24,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private PaddleSprite paddleSprite;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     //private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    private int speedX = 10;
-    private int speedY = 5;
+    private int speedX = 5;
+    private int speedY = 20;
     private BrickSprite[] bricks;
 
     public LevelSurfaceView(Context context) {
