@@ -3,6 +3,7 @@ package com.thebigbreakup.breakout.sprites;
 import android.app.ActionBar;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -113,12 +114,24 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     }
     public void update (int fps, int screenX){
      if (paddleMoving==left){
+         if(x>=0)
          x = x - paddleSpeed/fps;
+
+         else
+             x=0;
      }
      if (paddleMoving==right){
+         if(x+width<=screenX)
          x = x + paddleSpeed/fps;
+         else
+             x=0;
      }
-
+     /*if(rect.left<0){
+         x=0;
+     }
+     if(rect.right>screenX){
+         x=(int)(screenX-(rect.right-rect.left));
+     }*/
      rect.left = x;
      rect.right = x + width;
     }
@@ -140,17 +153,21 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     public int getY() {
         return y;
     }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        v.getId();
+
+
+
         switch(event.getAction()& MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_DOWN:
+
                 break;
 
             case MotionEvent.ACTION_UP:
                 break;
+
         }
+
         return true;
     }
     

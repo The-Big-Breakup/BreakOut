@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -122,4 +123,24 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         return false;
 
     }
+    public boolean onTouchEvent(MotionEvent motion){
+
+        switch(motion.getAction()& MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN:
+                paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+                if (motion.getX() > screenWidth / 2) {
+                    paddleSprite.setMovementState(paddleSprite.right);
+                } else {
+                    paddleSprite.setMovementState(paddleSprite.left);
+                }
+                break;
+
+            case MotionEvent.ACTION_UP:
+                paddleSprite.setMovementState(paddleSprite.stopped);
+                break;
+
+        }
+        return true;
+    }
 }
+
