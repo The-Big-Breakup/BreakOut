@@ -26,14 +26,16 @@ public final int stopped = 0;
 public final int left=1;
 public final int right = 2;
 private RectF rect;
-private int width;
-private int height;
-private int x;
-private int y;
-private int paddleSpeed;
+private float width;
+private float height;
+private float x;
+private float y;
+private float paddleSpeed;
 private int paddleMoving = stopped;
 private Canvas canvas;
 private Bitmap bitmap;
+private int posY, posX;
+private Rect bounds;
 
 private int touchedPixel;
 private int screenwidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -85,11 +87,18 @@ public int paddleCollision(int x,int y) {
 
 public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     this.bitmap = bmPlayer;
-    this.width = bitmap.getWidth();
-    this.height = bitmap.getHeight();
-    this.x = 500;
-    this.y = 500;
+    this.width = 10;
+    this.height = 120;
+    //bitmap.getHeight();
+    this.x = screenX/2;
+    this.y = screenY-100;
+   // this.posY=posY;
+    //this.posX=posX;
 
+    //this.bounds = new Rect();
+    //this.bounds.set(posX, posY, (posX+this.width),(posY+this.height));
+
+    //this.bitmap=Bitmap.createScaledBitmap(bitmap,this.width,this.height,false);
 
 
     //height = 20;
@@ -102,7 +111,6 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     this.paddleSpeed = 350;
 
 
-
 }
 
     public void drawPaddle(Canvas canvas) {
@@ -112,7 +120,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     public void setMovementState(int state){
     paddleMoving = state;
     }
-    public void update (int fps, int screenX){
+    public void update (float fps, int screenX){
      if (paddleMoving==left){
          if(x>=0)
          x = x - paddleSpeed/fps;
@@ -138,25 +146,29 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     public RectF getRect(){
         return rect;
     }
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
+    }
+    public void movmentX(int speedx) {
+
+    }
+    public void movmentY(int speedy){
+
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
-
 
         switch(event.getAction()& MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_DOWN:
@@ -170,7 +182,6 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
 
         return true;
     }
-    
 
 
 }

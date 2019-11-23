@@ -5,6 +5,7 @@ import android.content.Context;
 
 //import android.content.res.Resources;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -24,9 +25,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private BallSprite ballSprite;
     private PaddleSprite paddleSprite;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    //private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 50;
     private int speedY = 11;
+    private int a = (int)Math.round(screenHeight*0.9);
     private BrickSprite[] bricks;
 
     public LevelSurfaceView(Context context) {
@@ -53,7 +55,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
         ballSprite = new BallSprite(500, 500);
         ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
-        paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+        paddleSprite = new PaddleSprite(500,a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
         LevelOneLayout levelOneLayout = new LevelOneLayout();
         bricks = levelOneLayout.getBricks(getResources());
     }
@@ -88,6 +90,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
          */
         paddleSprite.update(60, screenWidth);
+
     }
 
     @Override
@@ -127,7 +130,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         switch(motion.getAction()& MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
-                paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+                paddleSprite = new PaddleSprite(500, a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
                 if (motion.getX() > screenWidth / 2) {
                     paddleSprite.setMovementState(paddleSprite.right);
                 } else {
