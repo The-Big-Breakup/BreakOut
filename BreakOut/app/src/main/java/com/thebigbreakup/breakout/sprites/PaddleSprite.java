@@ -25,20 +25,25 @@ public class PaddleSprite implements View.OnTouchListener {
 public final int stopped = 0;
 public final int left=1;
 public final int right = 2;
-private RectF rect;
-private float width;
-private float height;
-private float x;
-private float y;
-private float paddleSpeed;
+private Rect rect;
+private int width;
+private int height;
+private int x;
+private int y;
+private int paddleSpeed;
 private int paddleMoving = stopped;
 private Canvas canvas;
 private Bitmap bitmap;
 private int posY, posX;
 private Rect bounds;
+private int paddleScaleFactor = 100;
+
+
+
 
 private int touchedPixel;
 private int screenwidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+private int paddleSide =screenwidth/paddleScaleFactor;
 private int paddleLength = screenwidth/5;
 private int paddlePosition;
 private int leftSide = paddlePosition - (screenwidth/paddleLength);
@@ -92,6 +97,8 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     //bitmap.getHeight();
     this.x = screenX/2;
     this.y = screenY-100;
+
+
    // this.posY=posY;
     //this.posX=posX;
 
@@ -106,7 +113,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     //y = screenY - 20;
     // y*=-1;
 
-    this.rect = new RectF(x, y, x+width, y+height);
+    this.rect = new Rect(x, y, x+width, y+height);
 
     this.paddleSpeed = 350;
 
@@ -120,7 +127,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     public void setMovementState(int state){
     paddleMoving = state;
     }
-    public void update (float fps, int screenX){
+    public void update (int fps, int screenX){
      if (paddleMoving==left){
          if(x>=0)
          x = x - paddleSpeed/fps;
@@ -143,7 +150,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
      rect.left = x;
      rect.right = x + width;
     }
-    public RectF getRect(){
+    public Rect getRect(){
         return rect;
     }
     public float getWidth() {
@@ -181,6 +188,11 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
         }
 
         return true;
+    }
+    public void setImage(Bitmap image) {
+        this.bitmap = image;
+        //make a scaled bitmap from image
+        this.bitmap = Bitmap.createScaledBitmap(image, this.paddleSide , this.paddleSide, false);
     }
 
 

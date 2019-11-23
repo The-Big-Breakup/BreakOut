@@ -55,7 +55,12 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
         ballSprite = new BallSprite(500, 500);
         ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+
+
         paddleSprite = new PaddleSprite(500,a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
+
+       //     paddleSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+
         LevelOneLayout levelOneLayout = new LevelOneLayout();
         bricks = levelOneLayout.getBricks(getResources());
     }
@@ -144,6 +149,17 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         }
         return true;
+    }
+
+    public void checkPaddleBallCollision(BallSprite ball){
+        if(ball.getBounds().intersect(paddleSprite.getRect())){
+
+
+            ball.invertXDirection();
+
+
+
+        }
     }
 }
 
