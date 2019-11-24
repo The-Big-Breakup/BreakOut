@@ -58,8 +58,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 
         paddleSprite = new PaddleSprite(500,a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
-
-       //     paddleSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+        paddleSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
 
         LevelOneLayout levelOneLayout = new LevelOneLayout();
         bricks = levelOneLayout.getBricks(getResources());
@@ -135,7 +134,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         switch(motion.getAction()& MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
-                paddleSprite = new PaddleSprite(500, a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+                // paddleSprite = new PaddleSprite(500, a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
                 if (motion.getX() > screenWidth / 2) {
                     paddleSprite.setMovementState(paddleSprite.right);
                 } else {

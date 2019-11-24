@@ -36,7 +36,7 @@ private Canvas canvas;
 private Bitmap bitmap;
 private int posY, posX;
 private Rect bounds;
-private int paddleScaleFactor = 100;
+private int paddleScaleFactor = 5;
 
 
 
@@ -101,13 +101,9 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
 
    // this.posY=posY;
     //this.posX=posX;
-
     //this.bounds = new Rect();
     //this.bounds.set(posX, posY, (posX+this.width),(posY+this.height));
-
     //this.bitmap=Bitmap.createScaledBitmap(bitmap,this.width,this.height,false);
-
-
     //height = 20;
     // x = screenX/2;
     //y = screenY - 20;
@@ -115,7 +111,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
 
     this.rect = new Rect(x, y, x+width, y+height);
 
-    this.paddleSpeed = 350;
+    this.paddleSpeed = 800;
 
 
 }
