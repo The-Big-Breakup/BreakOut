@@ -41,6 +41,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 ft.replace(R.id.ActivityMain, newgamefragment);
                 ft.commit();
                 return true;
+            case R.id.score_btn:
+                //Toast.makeText(this,"New Game clicked",Toast.LENGTH_SHORT).show();
+                ScoreFragment scoreFragment = new ScoreFragment();
+                FragmentManager fm2 = getSupportFragmentManager();
+                FragmentTransaction ft2 = fm2.beginTransaction();
+                ft2.replace(R.id.ActivityMain, scoreFragment);
+                ft2.commit();
+                return true;
             case R.id.about_us_btn:
                 AboutUsFragment aboutusfargment = new AboutUsFragment();
                 FragmentManager fm1 = getSupportFragmentManager();

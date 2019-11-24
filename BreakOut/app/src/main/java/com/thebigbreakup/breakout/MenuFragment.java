@@ -19,6 +19,7 @@ public class MenuFragment extends Fragment {
     Button b1;
     Button b2;
     Button b3;
+    Button b4;
 
 
 
@@ -30,6 +31,7 @@ public class MenuFragment extends Fragment {
         b1 = v.findViewById(R.id.new_game_btn);
         b2 = v.findViewById(R.id.about_us_btn);
         b3 = v.findViewById(R.id.exit_btn);
+        b4 = v.findViewById(R.id.score_btn);
 
 
 
@@ -38,7 +40,7 @@ public class MenuFragment extends Fragment {
             public void onClick(View v) {
 
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.ActivityMain, new AboutUsFragment());
+                    ft.replace(R.id.ActivityMain, new NewGameFragment());
                     ft.commit();
 
             }
@@ -64,6 +66,17 @@ public class MenuFragment extends Fragment {
             }
         });
 
+
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.ActivityMain, new ScoreFragment());
+                    ft.addToBackStack(null).commit();
+                }
+            }
+        });
         return v;
 
 

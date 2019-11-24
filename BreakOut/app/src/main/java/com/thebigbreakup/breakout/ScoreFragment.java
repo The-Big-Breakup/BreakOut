@@ -10,15 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ScoreFragment extends Fragment {
 
-
-    public ScoreFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override

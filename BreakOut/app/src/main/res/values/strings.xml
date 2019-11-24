@@ -5,5 +5,13 @@
     <string name="new_game_btn">New Game</string>
     <string name="about_us_btn">About Us</string>
     <string name="exit_btn">Exit</string>
+    <string name="score_btn">High Score</string>
+    <string name="score_view">High Score : 100</string>
+    <string name="programers_names">Yahya Mohaied
+        Cyrille Ngide Kolle
+        Roman Divkovic
+        Timmy Olsson
+        Eric Johansson
+        Christian Järdeberg</string>
 
 </resources>

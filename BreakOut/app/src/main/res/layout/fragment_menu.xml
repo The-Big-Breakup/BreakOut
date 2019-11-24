@@ -9,15 +9,22 @@
     <Button
         android:id="@+id/new_game_btn"
         style="@style/btnStyle"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:text="@string/new_game_btn" />
+
+    <Button
+        android:id="@+id/score_btn"
+        style="@style/btnStyle"
+        android:layout_below="@+id/new_game_btn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/score_btn" />
 
     <Button
         android:id="@+id/about_us_btn"
         style="@style/btnStyle"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/new_game_btn"
+        android:layout_below="@+id/score_btn"
         android:layout_centerVertical="true"
         android:text="@string/about_us_btn" />
 
