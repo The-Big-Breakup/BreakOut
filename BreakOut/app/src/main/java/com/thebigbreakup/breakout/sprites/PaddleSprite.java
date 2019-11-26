@@ -48,6 +48,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 
     public void drawPaddle(Canvas canvas) {
         canvas.drawBitmap(this.bitmap, posX, posY, null);
+        for (int i = 0; i < paddleBounds.length; i++) {
+            paddleBounds[i].set(this.posX + i * posX, this.posY, this.width / paddleBounds.length, this.height);
+        }
+
     }
 
     public void setMovementState(int state){
@@ -77,5 +81,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
         return posX;
     }
 
-
+    public Rect[] getPaddleBounds() {
+        return paddleBounds;
+    }
 }

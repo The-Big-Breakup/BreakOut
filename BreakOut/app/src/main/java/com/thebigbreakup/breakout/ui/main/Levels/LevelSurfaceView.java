@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -26,9 +27,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private PaddleSprite paddleSprite;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    private int speedX = 50;
+    private int speedX = 10;
     private int speedY = 11;
-    private int a = (int)Math.round(screenHeight*0.9);
+    private int paddleYPosition = (int)Math.round(screenHeight*0.9);
     private BrickSprite[] bricks;
 
     public LevelSurfaceView(Context context) {
@@ -47,8 +48,6 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         thread.setRunning(true);
         thread.start();
 
-        //TODO: add livedata with boolean, x and y
-        //TODO: add LevelOneLayout to add blocks
     }
 
     @Override
@@ -57,8 +56,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
 
 
-        paddleSprite = new PaddleSprite(500,a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
-        paddleSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+        paddleSprite = new PaddleSprite(500,paddleYPosition, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
 
         LevelOneLayout levelOneLayout = new LevelOneLayout();
         bricks = levelOneLayout.getBricks(getResources());
@@ -93,6 +91,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
 
          */
+
+        checkPaddleCollision(paddleSprite, ballSprite);
+
         paddleSprite.update(60);
 
     }
@@ -114,6 +115,24 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
     }
 
+    public void checkPaddleCollision(PaddleSprite paddle, BallSprite ball) {
+        Rect ballBounds = ball.getBounds();
+        Rect[] paddleBoundsList = paddle.getPaddleBounds();
+
+        for (int i = 0; i < paddleBoundsList.length; i++) {
+
+            if (ballBounds.intersect(paddleBoundsList[i]) || ballBounds.contains(paddleBoundsList[i]) || paddleBoundsList[i].contains(ballBounds)) {
+                // TODO paddleBounds seem to be triggered always, probably they are badly set in paddle constructor
+                ballSprite.invertYDirection();
+                Log.d("christian", "checkPaddleCollision: true");
+                speedX += i - 2;
+            }
+
+        }
+
+
+    }
+
     public boolean checkCollision(BallSprite ball, BrickSprite[] bricks) {
 
         for (int i = 0; i < bricks.length; i++) {
@@ -130,6 +149,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         return false;
 
     }
+
     public boolean onTouchEvent(MotionEvent motion){
 
         switch(motion.getAction()) {
