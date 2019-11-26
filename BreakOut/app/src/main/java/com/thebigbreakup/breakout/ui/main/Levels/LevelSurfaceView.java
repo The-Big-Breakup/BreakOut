@@ -78,6 +78,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void update() {
+
+        checkPaddleCollision(paddleSprite, ballSprite);
+
         ballSprite.moveX(speedX);
         if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertXDirection();
@@ -93,7 +96,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 
 
-        checkPaddleCollision(paddleSprite, ballSprite);
+
 
         paddleSprite.update(60);
 
@@ -123,10 +126,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         for (int i = 0; i < paddleBoundsList.length; i++) {
 
             if (ballBounds.intersect(paddleBoundsList[i]) || ballBounds.contains(paddleBoundsList[i]) || paddleBoundsList[i].contains(ballBounds)) {
-                // TODO paddleBounds seem to be triggered always, probably they are badly set in paddle constructor
+                // TODO fix the speedX
                 ballSprite.invertYDirection();
                 Log.d("christian", "checkPaddleCollision: true");
-                speedX += i - 2;
+                speedX = i - 2;
             }
 
         }
