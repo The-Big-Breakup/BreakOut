@@ -39,9 +39,11 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 
     // set up boundsArray
     paddleBounds = new Rect[5];
+    int boundWidth = this.width / paddleBounds.length;
     for (int i = 0; i < paddleBounds.length; i++) {
+        int currentPosX = this.posX + i * boundWidth;
         paddleBounds[i] = new Rect();
-        paddleBounds[i].set(this.posX + i * posX, this.posY, this.width / paddleBounds.length, this.height);
+        paddleBounds[i].set(currentPosX, this.posY, (currentPosX + boundWidth), (posY + this.height));
     }
 
 }

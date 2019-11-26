@@ -91,7 +91,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             //destroy current brick
         }
 
-         */
+
 
         checkPaddleCollision(paddleSprite, ballSprite);
 
@@ -143,6 +143,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
                 brick.destroy();
+                Log.d("christian2", "checkCollision: true");
                 return true;
             }
         }
