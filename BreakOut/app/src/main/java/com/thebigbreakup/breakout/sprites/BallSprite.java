@@ -31,7 +31,6 @@ public class BallSprite {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.bounds = new Rect();
-        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
     }
 
     private int invertSpeed(int speed) {
@@ -92,6 +91,8 @@ public class BallSprite {
 
         xPosition += speedX;
 
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
+
     }
 
     /**
@@ -107,6 +108,8 @@ public class BallSprite {
         speedY = checkCollideY(speedY);
 
         yPosition += speedY;
+
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
     }
 
     /**
@@ -123,6 +126,7 @@ public class BallSprite {
      */
     public void drawBall(Canvas canvas) {
         canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
+
     }
 
     /**
@@ -137,7 +141,7 @@ public class BallSprite {
 
     /**
      * Change the size of the ball to a number that divides by screen width
-     * @param ballScaleFactor Integer to divide with screen size
+     * @param ballScaleFactor Integer to divide with screen size (Default 25)
      */
     public void setBallScaleFactor(int ballScaleFactor) {
         this.ballScaleFactor = ballScaleFactor;
