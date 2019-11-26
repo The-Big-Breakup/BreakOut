@@ -152,15 +152,5 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         return true;
     }
 
-    public void checkPaddleBallCollision(PaddleSprite paddleSprite, BallSprite ball){
-        if(ball.getBounds().intersect(paddleSprite.getRect())){
-
-
-            ball.invertXDirection();
-
-
-
-        }
-    }
 }
 
