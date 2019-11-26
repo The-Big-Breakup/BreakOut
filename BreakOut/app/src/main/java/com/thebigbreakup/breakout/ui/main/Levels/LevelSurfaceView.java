@@ -134,17 +134,20 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         switch(motion.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (motion.getX() > screenWidth / 2) {
-                    paddleSprite.setMovementState(paddleSprite.right);
-                } else {
+                if (motion.getX() == paddleSprite.getX()) {
+                    paddleSprite.setMovementState(paddleSprite.stopped);
+                } else if(motion.getX() < paddleSprite.getX()){
                     paddleSprite.setMovementState(paddleSprite.left);
+                }
+                else if(motion.getX() > paddleSprite.getX()){
+                    paddleSprite.setMovementState(paddleSprite.right);
+                    break;
                 }
                 break;
 
             case MotionEvent.ACTION_UP:
                 paddleSprite.setMovementState(paddleSprite.stopped);
                 break;
-
         }
         return true;
     }

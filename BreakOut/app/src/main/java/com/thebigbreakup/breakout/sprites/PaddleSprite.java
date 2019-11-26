@@ -37,11 +37,11 @@ private Bitmap bitmap;
 private int posY, posX;
 private Rect bounds;
 private int paddleScaleFactor = 10;
-private int screenwidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-private int paddleSide =screenwidth/paddleScaleFactor;
-private int paddleLength = screenwidth/5;
+private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+private int paddleSide =screenWidth/paddleScaleFactor;
+private int paddleLength = screenWidth/5;
 private int paddlePosition;
-private int leftSide = paddlePosition - (screenwidth/paddleLength);
+private int leftSide = paddlePosition - (screenWidth/paddleLength);
 
 
 
@@ -77,18 +77,21 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     }
     public void update (int fps){
      if (paddleMoving == left) {
-         if(x>=0)
-         x = x - paddleSpeed/fps;
-
-         else
-             x=0;
+         if(x >= 0) {
+             x -= paddleSpeed / fps;
+         }
+         else {
+             x = 0;
+         }
      }
      if (paddleMoving == right) {
 
-         if(x + width <= posX)
-         x = x + paddleSpeed/fps;
-         else
-             x=0;
+         if(x + width <= screenWidth) {
+             x += paddleSpeed / fps;
+         }
+         else {
+             x = 0;
+         }
      }
      rect.left = x;
      rect.right = x + width;
