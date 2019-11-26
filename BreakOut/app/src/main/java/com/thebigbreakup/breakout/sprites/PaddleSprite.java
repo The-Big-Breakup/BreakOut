@@ -37,27 +37,11 @@ private Bitmap bitmap;
 private int posY, posX;
 private Rect bounds;
 private int paddleScaleFactor = 10;
-private int touchedPixel;
 private int screenwidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 private int paddleSide =screenwidth/paddleScaleFactor;
 private int paddleLength = screenwidth/5;
 private int paddlePosition;
 private int leftSide = paddlePosition - (screenwidth/paddleLength);
-
-
-
-public int updateTouchMove() {
-    if(paddleLength - paddlePosition <0){
-        paddlePosition = paddleLength/2;
-    }
-    else if(paddleLength - paddlePosition > screenwidth){
-        paddlePosition = screenwidth - paddleLength/2;
-    }
-    else{
-        paddlePosition = touchedPixel - paddleLength/2;
-    }
-    return paddlePosition;
-}
 
 
 
@@ -70,15 +54,12 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     this.y = screenY-100;
 
 
-   // this.posY=posY;
-    //this.posX=posX;
-    //this.bounds = new Rect();
-    //this.bounds.set(posX, posY, (posX+this.width),(posY+this.height));
-    //this.bitmap=Bitmap.createScaledBitmap(bitmap,this.width,this.height,false);
-    //height = 20;
-    // x = screenX/2;
-    //y = screenY - 20;
-    // y*=-1;
+    this.posY=posY;
+    this.posX=posX;
+    this.bounds = new Rect();
+    this.bounds.set(posX, posY, (posX+this.width),(posY+this.height));
+    this.bitmap=Bitmap.createScaledBitmap(bitmap,this.width,this.height,false);
+    height = 20;
 
     this.rect = new Rect(x, y, x+width, y+height);
 
@@ -94,7 +75,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
     public void setMovementState(int state){
     paddleMoving = state;
     }
-    public void update (int fps, int screenX){
+    public void update (int fps){
      if (paddleMoving == left) {
          if(x>=0)
          x = x - paddleSpeed/fps;
@@ -104,7 +85,7 @@ public PaddleSprite(int screenX, int screenY, Bitmap bmPlayer){
      }
      if (paddleMoving == right) {
 
-         if(x + width <= screenX)
+         if(x + width <= posX)
          x = x + paddleSpeed/fps;
          else
              x=0;

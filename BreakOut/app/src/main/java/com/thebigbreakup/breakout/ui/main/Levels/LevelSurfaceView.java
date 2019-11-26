@@ -93,7 +93,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
 
          */
-        paddleSprite.update(60, screenWidth);
+        paddleSprite.update(60);
 
     }
 
@@ -132,9 +132,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
     public boolean onTouchEvent(MotionEvent motion){
 
-        switch(motion.getAction()& MotionEvent.ACTION_MASK) {
+        switch(motion.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                // paddleSprite = new PaddleSprite(500, a, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
                 if (motion.getX() > screenWidth / 2) {
                     paddleSprite.setMovementState(paddleSprite.right);
                 } else {
