@@ -1,5 +1,8 @@
 package com.thebigbreakup.breakout;
 
+
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,10 +16,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
+
+SoundFragment soundFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+
+
+
+
+
     }
 
 
@@ -35,11 +47,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         {
             case R.id.new_game_btn:
                 //Toast.makeText(this,"New Game clicked",Toast.LENGTH_SHORT).show();
+
+
+                /*
                 NewGameFragment newgamefragment = new NewGameFragment();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.ActivityMain, newgamefragment);
                 ft.commit();
+                */
+
+
+
+
                 return true;
             case R.id.score_btn:
                 //Toast.makeText(this,"New Game clicked",Toast.LENGTH_SHORT).show();
@@ -56,6 +76,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 ft1.replace(R.id.ActivityMain, aboutusfargment);
                 ft1.commit();
                 return true;
+            case R.id.sound_setting_btn:
+                SoundFragment soundFragment = new SoundFragment();
+                FragmentManager fm3 = getSupportFragmentManager();
+                FragmentTransaction ft3 = fm3.beginTransaction();
+                ft3.replace(R.id.ActivityMain, soundFragment);
+                ft3.commit();
+                return true;
             case R.id.exit_btn:
                 System.exit(0);
                 return true;
@@ -63,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return false;
 
         }}
+
+
+
 
 
 
@@ -84,17 +114,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(new LevelSurfaceView(this));
 
 
-        setContentView(R.layout.main_activity);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainerID, MainMenuFragment.newInstance())
-                    .commitNow();
         }
 
 
 
 
 
-    }*/
+    }
 
+*/

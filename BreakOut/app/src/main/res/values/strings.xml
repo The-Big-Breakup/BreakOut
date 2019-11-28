@@ -13,5 +13,10 @@
         Timmy Olsson
         Eric Johansson
         Christian Järdeberg</string>
+    <string name="sound_setting_btn">Setting</string>
+    <string name="play_sound">Play Sound</string>
+    <string name="stop_sound">Stop Sound</string>
+    <string name="play_effect">Play Effects Sound</string>
+    <string name="stop_effect">Stop Effects Sound</string>
 
 </resources>
