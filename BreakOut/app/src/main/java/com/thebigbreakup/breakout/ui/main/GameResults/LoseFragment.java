@@ -93,10 +93,9 @@ public class LoseFragment extends Fragment {
         NewGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoseFragment loseFragment = new LoseFragment();
-                FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.NewGame, loseFragment, loseFragment.getTag())
-                        .commit();
+                FragmentTransaction manager = getFragmentManager().beginTransaction();
+                manager.replace(R.id.ActivityMain, new GameFragment());
+                manager.commit();
 
             }
         });
