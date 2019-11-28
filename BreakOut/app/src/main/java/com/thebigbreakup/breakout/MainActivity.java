@@ -17,16 +17,10 @@ import androidx.fragment.app.FragmentTransaction;
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
 
-SoundFragment soundFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
-
-
-
 
 
     }

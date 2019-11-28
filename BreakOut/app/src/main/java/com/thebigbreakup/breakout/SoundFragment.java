@@ -22,7 +22,9 @@ public class SoundFragment extends Fragment {
     Button effectPlay;
     Button effectStop;
 
-MediaPlayer mediaPlayer;
+    MediaPlayer mediaSound;
+    MediaPlayer mediaEffectPaddle;
+    MediaPlayer mediaEffectBrick;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +32,10 @@ MediaPlayer mediaPlayer;
         View v = inflater.inflate(R.layout.fragment_sound, container, false);
 
 
-
+        soundPlay = v.findViewById(R.id.sound_play);
+        soundStop = v.findViewById(R.id.sound_stop);
+        effectPlay = v.findViewById(R.id.effect_play);
+        effectStop = v.findViewById(R.id.effect_stop);
 
 
         soundPlay.setOnClickListener(new View.OnClickListener() {
@@ -69,38 +74,35 @@ MediaPlayer mediaPlayer;
 
     public void backgroundSoundPlay()
     {
-        mediaPlayer = MediaPlayer.create(this.getContext() ,R.raw.testm);
-        mediaPlayer.start();
-        mediaPlayer.setLooping(true);
+        mediaSound = MediaPlayer.create(this.getContext() ,R.raw.testm);
+        mediaSound.start();
+        mediaSound.setLooping(true);
 
     }
 
     public void backgroundSoundStop()
     {
-        mediaPlayer = MediaPlayer.create(this.getContext() ,R.raw.testm);
-        mediaPlayer.stop();
+        mediaSound.stop();
     }
 
     public void paddleSoundPlay()
     {
-        mediaPlayer = MediaPlayer.create(this.getContext() ,R.raw.testm);
-        mediaPlayer.start();
+        mediaEffectPaddle = MediaPlayer.create(this.getContext() ,R.raw.testm);
+        mediaEffectPaddle.start();
     }
 
     public void paddleSoundStop()
     {
-        mediaPlayer = MediaPlayer.create(this.getContext() ,R.raw.testm);
-        mediaPlayer.stop();
+        mediaEffectPaddle.stop();
     }
     public void brickSoundPlay()
     {
-        mediaPlayer = MediaPlayer.create(this.getContext() ,R.raw.testm);
-        mediaPlayer.start();
+        mediaEffectBrick = MediaPlayer.create(this.getContext() ,R.raw.testm);
+        mediaEffectBrick.start();
     }
 
     public void brickSoundStop()
     {
-        mediaPlayer = MediaPlayer.create(this.getContext() ,R.raw.testm);
-        mediaPlayer.stop();
+        mediaEffectBrick.stop();
     }
 }
