@@ -89,6 +89,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 
         ballSprite.moveY(speedY);
+        if(ballSprite.getyPosition() >= screenHeight){
+            //trigga loser
+        }
         if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertYDirection();
             //destroy current brick

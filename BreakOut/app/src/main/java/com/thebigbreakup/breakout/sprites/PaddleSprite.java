@@ -8,10 +8,7 @@ import android.graphics.Rect;
 public class PaddleSprite {
 
 
-
-    //TODO: set values to paddle (Width, height etc)
     //TODO: make a shape and load it here to set design
-    //TODO: Move the paddle after the touchevent
     //TODO: make the paddle return a value depending on where we hit it
 
 public final int stopped = 0;
@@ -20,9 +17,7 @@ public final int right = 2;
 private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 private int width = screenWidth / 5;
 private int height = width / 10;
-private int posX;
-private int posY;
-private int paddleSpeedFactor;
+private int posX,posY, paddleSpeedFactor;
 private int paddleMoving = stopped;
 private Bitmap bitmap;
 private Rect[] paddleBounds;
@@ -35,7 +30,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
     // set scaled bitmap
     this.bitmap=Bitmap.createScaledBitmap(bitmap,this.width,this.height,false);
 
-    this.paddleSpeedFactor = 2500;
+    this.paddleSpeedFactor = 2000;
 
     // set up boundsArray
     paddleBounds = new Rect[5];
