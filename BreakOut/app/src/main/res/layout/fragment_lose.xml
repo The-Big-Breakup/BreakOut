@@ -9,12 +9,22 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
+        android:id="@+id/Lost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="#2838C6"
         android:text="You lost!!"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Lost"
+        android:layout_centerHorizontal="true"
+        android:text=":´("
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4" />
 
     <Button
         android:id="@+id/NewGame"
