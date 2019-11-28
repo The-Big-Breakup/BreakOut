@@ -2,6 +2,9 @@
     <string name="app_name" translatable="false">BreakOut</string>
     <string name="exempel" translatable="false">test</string>
     <string name="hello_blank_fragment" translatable="false">hej</string>
+    <string name="YOU_WON">YOU WON</string>
+    <string name="replay">REPLAY</string>
+    <string name="exit">Exit</string>
 
 
 </resources>

@@ -142,4 +142,8 @@ public class BallSprite {
     public void setBallScaleFactor(int ballScaleFactor) {
         this.ballScaleFactor = ballScaleFactor;
     }
+
+    public int getyPosition() {
+        return yPosition;
+    }
 }

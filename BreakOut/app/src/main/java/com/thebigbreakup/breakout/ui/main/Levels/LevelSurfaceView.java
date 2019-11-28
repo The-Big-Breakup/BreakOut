@@ -126,6 +126,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 ballSprite.invertYDirection();
                 Log.d("christian", "checkPaddleCollision: true");
                 speedX += i - 2;
+                if(ballSprite.getyPosition() >= screenHeight){
+                    //losefragment
+                }
             }
 
         }
