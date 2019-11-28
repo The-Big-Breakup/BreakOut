@@ -48,7 +48,6 @@ public class BrickSprite {
         if(!destroyed) {
             canvas.drawBitmap(this.image, this.xPos, this.yPos, null);
         }
-
     }
 
     public boolean checkCollision(int pixelX, int pixelY) {
@@ -99,7 +98,6 @@ public class BrickSprite {
 
     public void destroy() {
         this.destroyed = true;
-        this.bounds.setEmpty();
     }
 
     public void setImage(Bitmap image) {
