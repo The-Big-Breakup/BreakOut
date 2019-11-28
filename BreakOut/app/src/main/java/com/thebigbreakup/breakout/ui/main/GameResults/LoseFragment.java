@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.thebigbreakup.breakout.MainActivity;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.ui.main.GameFragment;
+import com.thebigbreakup.breakout.ui.main.MainMenuFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,12 +95,13 @@ public class LoseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction manager = getFragmentManager().beginTransaction();
-                manager.replace(R.id.ActivityMain, new GameFragment());
+                manager.replace(R.id.fragmentContainerID, new MainMenuFragment());
                 manager.commit();
 
             }
         });
         return v;
+       
     }
 
     // TODO: Rename method, update argument and hook method into UI event
