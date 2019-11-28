@@ -51,7 +51,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 
     public void drawPaddle(Canvas canvas) {
         if(posX >= screenWidth){
-            
+            posX = screenWidth - width;
         }
         canvas.drawBitmap(this.bitmap, posX, posY, null);
 

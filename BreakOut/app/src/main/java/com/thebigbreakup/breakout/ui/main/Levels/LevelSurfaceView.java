@@ -54,7 +54,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
         ballSprite = new BallSprite(1000, 500);
-        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
+        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ballpng));
 
 
         paddleSprite = new PaddleSprite(500,paddleYPosition, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
@@ -127,6 +127,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 ballSprite.invertYDirection();
                 Log.d("christian", "checkPaddleCollision: true");
                 speedX = i - 2;
+                if(ballSprite.getyPosition() >= screenHeight){
+                    //losefragment
+                }
             }
 
         }
