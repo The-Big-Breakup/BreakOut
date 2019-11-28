@@ -41,7 +41,7 @@ public class BallSprite {
      * Checks if the ball collides with the top or bottom of the screen
      */
     private int checkCollideY(int speed) {
-        if (yPosition >= screenHeight || yPosition <= 0) {
+        if (yPosition >= screenHeight - ballSide || yPosition <= 0) {
             invertYDirection();
             return speed = invertSpeed(speed);
         }
@@ -54,7 +54,7 @@ public class BallSprite {
      * Checks if the ball collides with the sides of the screen
      */
     private int checkCollideX(int speed) {
-        if (xPosition >= screenWidth || xPosition <= 0) {
+        if (xPosition >= screenWidth - ballSide || xPosition <= 0) {
             invertXDirection();
             return speed = invertSpeed(speed);
         }
