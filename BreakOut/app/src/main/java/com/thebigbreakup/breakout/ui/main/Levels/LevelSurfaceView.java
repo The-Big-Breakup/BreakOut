@@ -29,8 +29,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 10;
     private int speedY = 11;
-    private int paddleYPosition = (int)Math.round(screenHeight*0.9);
+    private int paddleYPosition = (int)Math.round(screenHeight*0.7);
     private BrickSprite[] bricks;
+    private MotionEvent m;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -87,7 +88,6 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             //destroy current brick
         }
 
-
         ballSprite.moveY(speedY);
         if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertYDirection();
@@ -95,10 +95,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
 
 
-
-
-
-        paddleSprite.update(60);
+        paddleSprite.update(m);
 
     }
 
@@ -156,15 +153,17 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public boolean onTouchEvent(MotionEvent motion){
+        m = motion;
 
-        switch(motion.getAction()) {
+        switch(m.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (motion.getX() == paddleSprite.getX()) {
+                if (m.getX() == paddleSprite.getX()) {
                     paddleSprite.setMovementState(paddleSprite.stopped);
-                } else if(motion.getX() < paddleSprite.getX()){
+                } else if(m.getX() < paddleSprite.getX())
+                {
                     paddleSprite.setMovementState(paddleSprite.left);
                 }
-                else if(motion.getX() > paddleSprite.getX()){
+                else if(m.getX() > paddleSprite.getX()){
                     paddleSprite.setMovementState(paddleSprite.right);
                     break;
                 }

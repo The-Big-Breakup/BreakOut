@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.MotionEvent;
 
 public class PaddleSprite {
 
@@ -19,7 +20,7 @@ public final int left=1;
 public final int right = 2;
 private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 private int width = screenWidth / 5;
-private int height = width / 10;
+private int height = width / 5;
 private int posX;
 private int posY;
 private int paddleSpeedFactor;
@@ -49,6 +50,9 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 }
 
     public void drawPaddle(Canvas canvas) {
+        if(posX >= screenWidth){
+            
+        }
         canvas.drawBitmap(this.bitmap, posX, posY, null);
 
         int boundWidth = this.width / paddleBounds.length;
@@ -62,26 +66,34 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
     public void setMovementState(int state){
     paddleMoving = state;
     }
-    public void update (int fps){
-     if (paddleMoving == left) {
-         if(posX >= 0) {
-             posX -= paddleSpeedFactor / fps;
-         }
-         else {
-             posX = 0;
-         }
-     }
-     if (paddleMoving == right) {
 
-         if(posX + width <= screenWidth) {
-             posX += paddleSpeedFactor / fps;
-         }
-         else {
-             posX = 0;
-         }
-     }
 
+    public void update (MotionEvent m){
+
+        int paddlePosition = (int)m.getX();
+        if(paddlePosition >= screenWidth){
+            paddlePosition -= width;
+        }else if(paddlePosition <= 0){
+            paddlePosition += width;
+        }
+        if (paddleMoving == left) {
+            if (posX >= 0) {
+                posX = paddlePosition;//paddleSpeedFactor / fps;
+            }
+            else {
+                posX = 0;
+            }
+        }
+        if (paddleMoving == right) {
+            if(posX + width <= screenWidth) {
+                posX = paddlePosition;
+            }
+            else {
+             posX = 0;
+            }
+        }
     }
+
     public int getX() {
         return posX;
     }
