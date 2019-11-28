@@ -32,6 +32,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int paddleYPosition = (int)Math.round(screenHeight*0.7);
     private BrickSprite[] bricks;
     private MotionEvent m;
+    private int bricksDestroyed = 0;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -127,14 +128,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 ballSprite.invertYDirection();
                 Log.d("christian", "checkPaddleCollision: true");
                 speedX = i - 2;
-                if(ballSprite.getyPosition() >= screenHeight){
-                    //losefragment
-                }
             }
-
         }
-
-
     }
 
     public boolean checkCollision(BallSprite ball, BrickSprite[] bricks) {
@@ -146,8 +141,12 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
                 brick.destroy();
+                bricksDestroyed++;
                 Log.d("christian2", "checkCollision: true");
                 return true;
+            }
+            if(bricksDestroyed >= bricks.length){
+
             }
         }
 

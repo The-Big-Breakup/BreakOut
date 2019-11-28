@@ -50,8 +50,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 }
 
     public void drawPaddle(Canvas canvas) {
-        if(posX >= screenWidth){
+        if(posX > screenWidth - width){
             posX = screenWidth - width;
+        }else if(posX < 0){
+            posX = screenWidth + width;
         }
         canvas.drawBitmap(this.bitmap, posX, posY, null);
 
@@ -71,10 +73,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
     public void update (MotionEvent m){
 
         int paddlePosition = (int)m.getX();
-        if(paddlePosition >= screenWidth){
-            paddlePosition -= width;
-        }else if(paddlePosition <= 0){
-            paddlePosition += width;
+        if(paddlePosition > screenWidth - width){
+            paddlePosition = screenWidth - width;
+        }else if(paddlePosition < 0){
+            paddlePosition = screenWidth + width;
         }
         if (paddleMoving == left) {
             if (posX >= 0) {
