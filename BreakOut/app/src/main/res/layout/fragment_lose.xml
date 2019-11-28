@@ -3,18 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#AA00FF"
     tools:context=".ui.main.GameResults.LoseFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textColor="#4527A0"
-        android:text="You lost"
+        android:textColor="#2838C6"
+        android:text="You lost!!"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
     <Button

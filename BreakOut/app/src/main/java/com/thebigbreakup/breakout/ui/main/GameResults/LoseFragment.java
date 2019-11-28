@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.thebigbreakup.breakout.MainActivity;
 import com.thebigbreakup.breakout.R;
+import com.thebigbreakup.breakout.ui.main.GameFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,7 +86,7 @@ public class LoseFragment extends Fragment {
         ExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.exit(0);
             }
         });
         NewGameButton.setOnClickListener(new View.OnClickListener() {

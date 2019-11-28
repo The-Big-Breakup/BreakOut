@@ -19,6 +19,7 @@ import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.BrickSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
+import com.thebigbreakup.breakout.ui.main.GameResults.LoseFragment;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -90,7 +91,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         ballSprite.moveY(speedY);
         if(ballSprite.getyPosition() >= screenHeight){
-            //trigga loser
+            // LoseFragment;
         }
         if (checkCollision(ballSprite, bricks)) {
             ballSprite.invertYDirection();
