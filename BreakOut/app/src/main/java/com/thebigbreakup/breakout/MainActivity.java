@@ -12,7 +12,7 @@ import com.thebigbreakup.breakout.ui.main.Levels.LevelSurfaceView;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO: Replace annotation with setting the buildversion to api 24 in gradle instead
+
     @RequiresApi(api = Build.VERSION_CODES.N)
 
 

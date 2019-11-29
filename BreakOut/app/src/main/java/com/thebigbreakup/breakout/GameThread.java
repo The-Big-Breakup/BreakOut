@@ -69,7 +69,7 @@ public class GameThread extends Thread {
                 averageFPS = 1000 / ((totalTime / frameCount) / 1000000);
                 frameCount = 0;
                 totalTime = 0;
-                //TODO: remove this debugging sout when image is drawn correct
+
                 System.out.println(averageFPS);
             }
 
@@ -82,11 +82,7 @@ public class GameThread extends Thread {
 
     //this is the MainThread for the game
 
-    //TODO: Create the canvas from the LevelSurfaceView
 
-    //TODO: Create a draw method called in the run method
-
-    //TODO: Update the LevelSurfaceView so the animations work
 
 
 }

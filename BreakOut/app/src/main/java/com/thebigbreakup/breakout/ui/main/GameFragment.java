@@ -39,8 +39,7 @@ public class GameFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
 
-        //TODO: add LevelSurfaceView and PlayerStatsFragment
-        //TODO: Add win. lose, pause fragments on triggers (also LevelCompleteFragment when different levels exist)
+
 
     }
 

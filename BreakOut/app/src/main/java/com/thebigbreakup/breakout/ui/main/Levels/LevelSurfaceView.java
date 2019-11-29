@@ -124,9 +124,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         for (int i = 0; i < paddleBoundsList.length; i++) {
 
             if (ballBounds.intersect(paddleBoundsList[i]) || ballBounds.contains(paddleBoundsList[i]) || paddleBoundsList[i].contains(ballBounds)) {
-                // TODO fix the speedX
+
                 ballSprite.invertYDirection();
-                Log.d("christian", "checkPaddleCollision: true");
                 speedX = i - 2;
             }
         }
@@ -142,7 +141,6 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
                 brick.destroy();
                 bricksDestroyed++;
-                Log.d("christian2", "checkCollision: true");
                 return true;
             }
             if(bricksDestroyed >= bricks.length){

@@ -34,11 +34,7 @@ public class MainMenuFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
-        // TODO: Get int value that sets angle from Viewmodel
 
-        // TODO: Make the variables for the ball (Size, Speed, shape etc.)
-
-        //TODO: Make the ball move
 
     }
 

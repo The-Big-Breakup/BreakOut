@@ -52,8 +52,7 @@ public class LevelOneLayout {
 
     }
 
-    //TODO observe LiveData from LevelSurfaceView
-    //TODO when LiveData tells that a brick is hit by ball, loop through every brick and call CheckCollision-method
+
 
 
 }

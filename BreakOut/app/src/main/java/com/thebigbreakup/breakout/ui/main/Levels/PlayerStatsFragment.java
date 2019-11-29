@@ -28,10 +28,7 @@ public class PlayerStatsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_player_stats, container, false);
 
-        //TODO: Display currentscore
-        //TODO: Display lives
-        //TODO: Players Highscore
-        //TODO: Add hamburger menu (settings menu)
+
 
     }
 
