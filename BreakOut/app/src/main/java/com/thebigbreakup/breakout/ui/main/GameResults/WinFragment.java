@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.thebigbreakup.breakout.R;
 
@@ -15,6 +16,8 @@ import com.thebigbreakup.breakout.R;
  * A simple {@link Fragment} subclass.
  */
 public class WinFragment extends Fragment {
+     Button Game;
+     Button Exit;
 
 
     public WinFragment() {
@@ -26,7 +29,14 @@ public class WinFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_win, container, false);
+       // return inflater.inflate(R.layout.fragment_win, container, false);
+        View v = inflater.inflate(R.layout.fragment_lose, container, false);
+        Exit = getView().findViewById(R.id.Exit);
+        Game = getView().findViewById(R.id.Game);
+
+
+
+        return v;
     }
 
 }
