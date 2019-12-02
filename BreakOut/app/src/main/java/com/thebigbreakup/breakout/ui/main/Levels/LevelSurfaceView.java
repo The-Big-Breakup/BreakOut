@@ -16,6 +16,7 @@ import android.view.SurfaceView;
 
 import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
+import com.thebigbreakup.breakout.Sounds;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.BrickSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
@@ -25,6 +26,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private GameThread thread;
     private BallSprite ballSprite;
     private PaddleSprite paddleSprite;
+    private Sounds sounds;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 10;
@@ -62,6 +64,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         LevelOneLayout levelOneLayout = new LevelOneLayout();
         bricks = levelOneLayout.getBricks(getResources());
+
+        sounds = new Sounds(getContext());
+        sounds.getBackgroundMusic().start();
+        sounds.getBackgroundMusic().setLooping(true);
     }
 
     @Override
@@ -128,6 +134,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 ballSprite.invertYDirection();
                 Log.d("christian", "checkPaddleCollision: true");
                 speedX = i - 2;
+
+                // play paddle sound
+                sounds.getPaddleSound().start();
             }
         }
     }
@@ -143,6 +152,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 brick.destroy();
                 bricksDestroyed++;
                 Log.d("christian2", "checkCollision: true");
+                // play brick sound
+                sounds.getBrickSound().start();
                 return true;
             }
             if(bricksDestroyed >= bricks.length){
