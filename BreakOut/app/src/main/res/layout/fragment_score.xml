@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:id="@+id/ActivityMain"
-    tools:context=".MainActivity" >
+    tools:context=".ScoreFragment">
+
 
 
     <ImageView
@@ -19,13 +19,13 @@
         android:onClick="showmenu"
         />
 
-
-
-<fragment
-android:id="@+id/fragment3"
-android:name="com.thebigbreakup.breakout.MenuFragment"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layout_below="@+id/menu_view"/>
-
-    </RelativeLayout>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/textView"
+        android:textSize="30dp"
+        android:layout_marginTop="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/score_view" />
+</RelativeLayout>
