@@ -72,10 +72,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 
     public void update (MotionEvent m){
 
-        int paddlePosition = (int)m.getX();
+        int paddlePosition = (int)m.getX() - width/2;
         if(paddlePosition > screenWidth - width){
             paddlePosition = screenWidth - width;
-        }else if(paddlePosition < 0){
+        }else if(paddlePosition + width/2 < 0){
             paddlePosition = screenWidth + width;
         }
         if (paddleMoving == left) {
