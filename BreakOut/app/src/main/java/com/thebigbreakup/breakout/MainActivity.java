@@ -56,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 ft1.replace(R.id.ActivityMain, aboutusfargment);
                 ft1.commit();
                 return true;
+            case R.id.sound_setting_btn:
+                SoundFragment soundFragment = new SoundFragment();
+                FragmentManager fm4 = getSupportFragmentManager();
+                FragmentTransaction ft4 = fm4.beginTransaction();
+                ft4.replace(R.id.ActivityMain, soundFragment);
+                ft4.commit();
+                return true;
             case R.id.exit_btn:
                 System.exit(0);
                 return true;
@@ -68,33 +75,3 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
 }
-
-
-
-
-        /*
-
-
-            @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(new LevelSurfaceView(this));
-
-
-        setContentView(R.layout.main_activity);
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainerID, MainMenuFragment.newInstance())
-                    .commitNow();
-        }
-
-
-
-
-
-    }*/
-

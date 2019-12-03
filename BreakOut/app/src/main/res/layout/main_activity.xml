@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ActivityMain"
     android:background="@drawable/background"
+    android:id="@+id/ActivityMain"
     tools:context=".MainActivity" >
+
 
     <ImageView
         android:id="@+id/menu_view"
@@ -13,18 +14,18 @@
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="30dp"
-        android:src="@drawable/menublack"
+        android:src="@drawable/menuwhite"
         android:contentDescription="@string/app_name"
         android:onClick="showmenu"
         />
 
 
 
-    <fragment
-        android:id="@+id/fragment3"
-        android:name="com.thebigbreakup.breakout.MenuFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/menu_view"/>
+<fragment
+android:id="@+id/fragment3"
+android:name="com.thebigbreakup.breakout.MenuFragment"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_below="@+id/menu_view"/>
 
-</RelativeLayout>
+    </RelativeLayout>

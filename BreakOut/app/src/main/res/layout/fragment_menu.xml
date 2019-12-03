@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/new_game_btn"
         style="@style/btnStyle"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
         android:text="@string/new_game_btn" />
 
@@ -28,11 +28,20 @@
         android:layout_centerVertical="true"
         android:text="@string/about_us_btn" />
 
+
+    <Button
+        android:id="@+id/sound_setting_btn"
+        style="@style/btnStyle"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/about_us_btn"
+        android:layout_centerVertical="true"
+        android:text="@string/sound_setting_btn" />
+
     <Button
         android:id="@+id/exit_btn"
         style="@style/btnStyle"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/about_us_btn"
+        android:layout_below="@+id/sound_setting_btn"
         android:layout_centerVertical="true"
         android:text="@string/exit_btn" />
 
