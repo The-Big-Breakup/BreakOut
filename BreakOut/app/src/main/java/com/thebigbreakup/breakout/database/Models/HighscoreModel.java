@@ -2,13 +2,21 @@ package com.thebigbreakup.breakout.database.Models;
 
 public class HighscoreModel {
 
-    private int highScore;
+    private String highScore;
 
-    public int getHighScore() {
+    public HighscoreModel() {
+
+    }
+
+    public HighscoreModel(String s) {
+        this.highScore = s;
+    }
+
+    public String getHighScore() {
         return highScore;
     }
 
-    public void setHighScore(int highScore) {
+    public void setHighScore(String highScore) {
         this.highScore = highScore;
     }
 
