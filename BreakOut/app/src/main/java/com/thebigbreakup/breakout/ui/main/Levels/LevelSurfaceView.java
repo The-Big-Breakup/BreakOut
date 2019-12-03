@@ -5,7 +5,6 @@ import android.content.Context;
 
 //import android.content.res.Resources;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -31,7 +30,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int speedY = 11;
     private int paddleYPosition = (int)Math.round(screenHeight*0.7);
     private BrickSprite[] bricks;
-    private MotionEvent m;
+    private MotionEvent paddleMotion;
     private int bricksDestroyed = 0;
 
     public LevelSurfaceView(Context context) {
@@ -95,9 +94,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             //destroy current brick
         }
 
-
-        paddleSprite.update(m);
-
+        if(paddleMotion != null){
+            paddleSprite.update(paddleMotion);
+        }
     }
 
     @Override
@@ -155,17 +154,17 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public boolean onTouchEvent(MotionEvent motion){
-        m = motion;
+        paddleMotion = motion;
 
-        switch(m.getAction()) {
+        switch(paddleMotion.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (m.getX() == paddleSprite.getX()) {
+                if (paddleMotion.getX() == paddleSprite.getX()) {
                     paddleSprite.setMovementState(paddleSprite.stopped);
-                } else if(m.getX() < paddleSprite.getX())
+                } else if(paddleMotion.getX() < paddleSprite.getX())
                 {
                     paddleSprite.setMovementState(paddleSprite.left);
                 }
-                else if(m.getX() > paddleSprite.getX()){
+                else if(paddleMotion.getX() > paddleSprite.getX()){
                     paddleSprite.setMovementState(paddleSprite.right);
                     break;
                 }
