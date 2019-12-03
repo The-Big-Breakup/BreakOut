@@ -1,6 +1,6 @@
-package com.thebigbreakup.breakout;
+package com.thebigbreakup.breakout.database.Models;
 
-public class DatabaseModel {
+public class HighscoreModel {
 
 
     //TODO: Get highscore from firebase
