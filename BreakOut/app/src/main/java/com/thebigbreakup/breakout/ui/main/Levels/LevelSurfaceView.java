@@ -8,15 +8,19 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.Sounds;
+import com.thebigbreakup.breakout.database.DBHelper;
+import com.thebigbreakup.breakout.database.Models.HighscoreModel;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.BrickSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
@@ -30,11 +34,15 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = 10;
-    private int speedY = 11;
+    private int speedY = 20;
     private int paddleYPosition = (int)Math.round(screenHeight*0.7);
     private BrickSprite[] bricks;
-    private MotionEvent m;
+    private MotionEvent paddleMotion;
     private int bricksDestroyed = 0;
+    private DBHelper db = new DBHelper(getContext());
+    private int score;
+    private HighscoreModel highscoreModel = new HighscoreModel();
+    private Paint scoreStyle = new Paint();
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -43,6 +51,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         thread = new GameThread(getHolder(), this);
         setFocusable(true);
+
+        scoreStyle.setTextSize(16);
+        scoreStyle.setColor(getResources().getColor(R.color.colorAccent));
+
     }
 
     @Override
@@ -102,7 +114,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
 
 
-        paddleSprite.update(m);
+        paddleSprite.update(paddleMotion);
 
     }
 
@@ -119,6 +131,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 bricks[i].draw(canvas);
             }
 
+            canvas.drawText(String.valueOf(score), 500, 500, scoreStyle);
 
         }
     }
@@ -150,33 +163,40 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
                 brick.destroy();
+                score += bricks[i].getRewardPoints();
                 bricksDestroyed++;
                 Log.d("christian2", "checkCollision: true");
+                Log.d("christian2", "jahs" + score);
                 // play brick sound
                 sounds.getBrickSound().start();
+                if(bricksDestroyed >= bricks.length){
+                    Toast toast = Toast.makeText(getContext(), score, Toast.LENGTH_LONG);
+                    toast.show();
+                    bricksDestroyed = 0;
+                }
                 return true;
             }
-            if(bricksDestroyed >= bricks.length){
-
-            }
         }
+        //highscoreModel.setHighScore(highscoreModel.getHighScore() + bricks[i].getRewardPoints());
+        // save new highscore to database
+        //db.setHighscore(highscoreModel.getHighScore());
 
         return false;
 
     }
 
     public boolean onTouchEvent(MotionEvent motion){
-        m = motion;
+        paddleMotion = motion;
 
-        switch(m.getAction()) {
+        switch(paddleMotion.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (m.getX() == paddleSprite.getX()) {
+                if (paddleMotion.getX() == paddleSprite.getX()) {
                     paddleSprite.setMovementState(paddleSprite.stopped);
-                } else if(m.getX() < paddleSprite.getX())
+                } else if(paddleMotion.getX() < paddleSprite.getX())
                 {
                     paddleSprite.setMovementState(paddleSprite.left);
                 }
-                else if(m.getX() > paddleSprite.getX()){
+                else if(paddleMotion.getX() > paddleSprite.getX()){
                     paddleSprite.setMovementState(paddleSprite.right);
                     break;
                 }
