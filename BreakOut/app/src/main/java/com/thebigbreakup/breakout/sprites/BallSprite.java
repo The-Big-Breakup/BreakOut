@@ -31,7 +31,6 @@ public class BallSprite {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.bounds = new Rect();
-        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
     }
 
     private int invertSpeed(int speed) {
@@ -42,7 +41,7 @@ public class BallSprite {
      * Checks if the ball collides with the top or bottom of the screen
      */
     private int checkCollideY(int speed) {
-        if (yPosition >= screenHeight || yPosition <= 0) {
+        if (yPosition >= screenHeight - ballSide || yPosition <= 0) {
             invertYDirection();
             return speed = invertSpeed(speed);
         }
@@ -55,7 +54,7 @@ public class BallSprite {
      * Checks if the ball collides with the sides of the screen
      */
     private int checkCollideX(int speed) {
-        if (xPosition >= screenWidth || xPosition <= 0) {
+        if (xPosition >= screenWidth - ballSide || xPosition <= 0) {
             invertXDirection();
             return speed = invertSpeed(speed);
         }
@@ -92,6 +91,8 @@ public class BallSprite {
 
         xPosition += speedX;
 
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
+
     }
 
     /**
@@ -107,6 +108,8 @@ public class BallSprite {
         speedY = checkCollideY(speedY);
 
         yPosition += speedY;
+
+        this.bounds.set(xPosition, yPosition, (xPosition + ballSide), (yPosition + ballSide));
     }
 
     /**
@@ -123,6 +126,7 @@ public class BallSprite {
      */
     public void drawBall(Canvas canvas) {
         canvas.drawBitmap(this.image, this.xPosition, this.yPosition, null);
+
     }
 
     /**
@@ -137,9 +141,17 @@ public class BallSprite {
 
     /**
      * Change the size of the ball to a number that divides by screen width
-     * @param ballScaleFactor Integer to divide with screen size
+     * @param ballScaleFactor Integer to divide with screen size (Default 25)
      */
     public void setBallScaleFactor(int ballScaleFactor) {
         this.ballScaleFactor = ballScaleFactor;
+    }
+
+    public int getyPosition() {
+        return yPosition;
+    }
+
+    public boolean isxDirLeft() {
+        return xDirLeft;
     }
 }

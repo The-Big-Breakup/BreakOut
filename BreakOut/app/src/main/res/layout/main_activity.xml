@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentContainerID"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" />
+    android:background="@drawable/background"
+    android:id="@+id/ActivityMain"
+    tools:context=".MainActivity" >
+
+
+    <ImageView
+        android:id="@+id/menu_view"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/menuwhite"
+        android:contentDescription="@string/app_name"
+        android:onClick="showmenu"
+        />
+
+
+
+<fragment
+android:id="@+id/fragment3"
+android:name="com.thebigbreakup.breakout.MenuFragment"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_below="@+id/menu_view"/>
+
+    </RelativeLayout>

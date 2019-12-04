@@ -1,7 +1,22 @@
 <resources>
     <string name="app_name" translatable="false">BreakOut</string>
     <string name="exempel" translatable="false">test</string>
-    <string name="hello_blank_fragment" translatable="false">hej</string>
-
+    <string name="hello_blank_fragment">hej</string>
+    <string name="new_game_btn">New Game</string>
+    <string name="about_us_btn">About Us</string>
+    <string name="exit_btn">Exit</string>
+    <string name="score_btn">High Score</string>
+    <string name="score_view">High Score : 100</string>
+    <string name="programers_names">Yahya Mohaied
+        Cyrille Ngide Kolle
+        Roman Divkovic
+        Timmy Olsson
+        Eric Johansson
+        Christian Järdeberg</string>
+    <string name="sound_setting_btn">Setting</string>
+    <string name="play_sound">Play Sound</string>
+    <string name="stop_sound">Stop Sound</string>
+    <string name="play_effect">Play Effects Sound</string>
+    <string name="stop_effect">Stop Effects Sound</string>
 
 </resources>
