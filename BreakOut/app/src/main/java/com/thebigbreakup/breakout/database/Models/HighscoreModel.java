@@ -20,7 +20,4 @@ public class HighscoreModel {
         this.highScore = highScore;
     }
 
-
-    //TODO: Get highscore from firebase
-    //TODO: Write highscore to Firebase
 }

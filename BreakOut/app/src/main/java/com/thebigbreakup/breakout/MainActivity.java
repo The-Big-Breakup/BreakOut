@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        DBHelper db = new DBHelper(this);
+        db.setHighscore(3);
+
     }
 
 
