@@ -5,7 +5,6 @@ import android.content.Context;
 
 //import android.content.res.Resources;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -113,9 +112,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             //destroy current brick
         }
 
-
-        paddleSprite.update(paddleMotion);
-
+        if(paddleMotion != null){
+            paddleSprite.update(paddleMotion);
+        }
     }
 
     @Override
