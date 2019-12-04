@@ -60,7 +60,7 @@ SoundFragment soundFragment;
                 if (getActivity() != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.ActivityMain, new AboutUsFragment());
-                                        ft.addToBackStack(null).commit();
+                                        ft.commit();
                 }
             }
         });
@@ -80,7 +80,7 @@ SoundFragment soundFragment;
                 if (getActivity() != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.ActivityMain, new ScoreFragment());
-                    ft.addToBackStack(null).commit();
+                    ft.commit();
                 }
             }
         });
@@ -91,7 +91,7 @@ SoundFragment soundFragment;
                 if (getActivity() != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.ActivityMain, new SoundFragment());
-                    ft.addToBackStack(null).commit();
+                    ft.commit();
                 }
             }
         });
