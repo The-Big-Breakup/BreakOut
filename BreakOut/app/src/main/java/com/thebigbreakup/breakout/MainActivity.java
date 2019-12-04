@@ -1,12 +1,10 @@
 package com.thebigbreakup.breakout;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,8 +22,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         db.setHighscore(5);
 
     }
-
-
 
     public void showmenu(View v)
     {
@@ -77,7 +73,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         }}
 
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

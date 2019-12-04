@@ -9,11 +9,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.thebigbreakup.breakout.GameThread;
 import com.thebigbreakup.breakout.R;
@@ -56,6 +60,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     }
 
+
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
 
@@ -94,6 +99,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             }
             retry = false;
         }
+        // stop and release sounds
+        sounds.getBackgroundMusic().stop();
+        sounds.release();
     }
 
     public void update() {
