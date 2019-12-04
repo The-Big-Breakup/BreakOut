@@ -87,7 +87,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void setHighscore(int highScore){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("INSERT INTO " + TABLE_HIGHSCORE + "(" + COLUMN_HIGHSCORE + ")" + " VALUES (" + highScore + ");");
+        Cursor c = db.query(TABLE_HIGHSCORE, new String[] {COLUMN_HIGHSCORE}, null, null, null, null, null);
+
+        if (c != null) {
+            db.execSQL("UPDATE " + TABLE_HIGHSCORE + " SET " + COLUMN_HIGHSCORE + " = " + highScore + ";");
+        } else {
+            db.execSQL("INSERT INTO " + TABLE_HIGHSCORE + "(" + COLUMN_HIGHSCORE + ")" + " VALUES (" + highScore + ");");
+        }
+
     }
 
 }
