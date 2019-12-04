@@ -8,7 +8,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -31,6 +34,8 @@ import com.thebigbreakup.breakout.ui.main.GameResults.WinFragment;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.List;
+
+import static com.thebigbreakup.breakout.GameThread.canvas;
 
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -113,7 +118,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public  void draw(Canvas canvas) {
         super.draw(canvas);
         if (canvas != null) {
 
@@ -158,137 +163,16 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 return true;
             }
             if(bricksDestroyed >= bricks.length){
-                Fragment winFragment;
-                FragmentManager manager = new FragmentManager() {
-                    @NonNull
-                    @Override
-                    public FragmentTransaction beginTransaction() {
-                        return null;
-                    }
 
-                    @Override
-                    public boolean executePendingTransactions() {
-                        return false;
-                    }
+                /**
+                    Paint paint = new Paint();
+                    paint.setColor(Color.WHITE);
+                    paint.setTextSize(50);
 
-                    @Nullable
-                    @Override
-                    public Fragment findFragmentById(int id) {
-                        return null;
-                    }
+                    canvas.drawText("YOU HAVE WON!", 500, 30, paint);
+                */
 
-                    @Nullable
-                    @Override
-                    public Fragment findFragmentByTag(@Nullable String tag) {
-                        return null;
-                    }
 
-                    @Override
-                    public void popBackStack() {
-
-                    }
-
-                    @Override
-                    public boolean popBackStackImmediate() {
-                        return false;
-                    }
-
-                    @Override
-                    public void popBackStack(@Nullable String name, int flags) {
-
-                    }
-
-                    @Override
-                    public boolean popBackStackImmediate(@Nullable String name, int flags) {
-                        return false;
-                    }
-
-                    @Override
-                    public void popBackStack(int id, int flags) {
-
-                    }
-
-                    @Override
-                    public boolean popBackStackImmediate(int id, int flags) {
-                        return false;
-                    }
-
-                    @Override
-                    public int getBackStackEntryCount() {
-                        return 0;
-                    }
-
-                    @NonNull
-                    @Override
-                    public BackStackEntry getBackStackEntryAt(int index) {
-                        return null;
-                    }
-
-                    @Override
-                    public void addOnBackStackChangedListener(@NonNull OnBackStackChangedListener listener) {
-
-                    }
-
-                    @Override
-                    public void removeOnBackStackChangedListener(@NonNull OnBackStackChangedListener listener) {
-
-                    }
-
-                    @Override
-                    public void putFragment(@NonNull Bundle bundle, @NonNull String key, @NonNull Fragment fragment) {
-
-                    }
-
-                    @Nullable
-                    @Override
-                    public Fragment getFragment(@NonNull Bundle bundle, @NonNull String key) {
-                        return null;
-                    }
-
-                    @NonNull
-                    @Override
-                    public List<Fragment> getFragments() {
-                        return null;
-                    }
-
-                    @Nullable
-                    @Override
-                    public Fragment.SavedState saveFragmentInstanceState(@NonNull Fragment f) {
-                        return null;
-                    }
-
-                    @Override
-                    public boolean isDestroyed() {
-                        return false;
-                    }
-
-                    @Override
-                    public void registerFragmentLifecycleCallbacks(@NonNull FragmentLifecycleCallbacks cb, boolean recursive) {
-
-                    }
-
-                    @Override
-                    public void unregisterFragmentLifecycleCallbacks(@NonNull FragmentLifecycleCallbacks cb) {
-
-                    }
-
-                    @Nullable
-                    @Override
-                    public Fragment getPrimaryNavigationFragment() {
-                        return null;
-                    }
-
-                    @Override
-                    public void dump(@NonNull String prefix, @Nullable FileDescriptor fd, @NonNull PrintWriter writer, @Nullable String[] args) {
-
-                    }
-
-                    @Override
-                    public boolean isStateSaved() {
-                        return false;
-                    }
-                };
-                manager.beginTransaction().replace(R.id.fragmentContainerID, new WinFragment()).commit();
             }
         }
 
