@@ -2,6 +2,13 @@ package com.thebigbreakup.breakout;
 
 public class Player {
 
-    //TODO: Create variables like score
-    //TODO: save score to shared preferences IF score is higher than playerhighscore
+    private int score = 0;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.thebigbreakup.breakout.GameThread;
+import com.thebigbreakup.breakout.Player;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.Sounds;
 import com.thebigbreakup.breakout.database.DBHelper;
@@ -38,12 +39,12 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int speedX = screenWidth / 80;
     private int speedY = screenHeight / 160;
-    private int paddleYPosition = (int)Math.round(screenHeight*0.7);
+    private int paddleYPosition = (int)Math.round(screenHeight * 0.7);
     private BrickSprite[] bricks;
     private MotionEvent paddleMotion;
     private int bricksDestroyed = 0;
     private DBHelper db = new DBHelper(getContext());
-    private int score;
+    private Player player = new Player();
     private HighscoreModel highscoreModel = new HighscoreModel();
     private Paint scoreStyle = new Paint();
 
@@ -55,7 +56,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         thread = new GameThread(getHolder(), this);
         setFocusable(true);
 
-        scoreStyle.setTextSize(16);
+        scoreStyle.setTextSize(screenWidth / 10);
         scoreStyle.setColor(getResources().getColor(R.color.colorAccent));
 
     }
@@ -108,13 +109,13 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         checkPaddleCollision(paddleSprite, ballSprite);
 
         ballSprite.moveX(speedX);
-        if (checkCollision(ballSprite, bricks)) {
+        if (checkCollision(ballSprite, bricks, player)) {
             ballSprite.invertXDirection();
             //destroy current brick
         }
 
         ballSprite.moveY(speedY);
-        if (checkCollision(ballSprite, bricks)) {
+        if (checkCollision(ballSprite, bricks, player)) {
             ballSprite.invertYDirection();
             //destroy current brick
         }
@@ -137,7 +138,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 bricks[i].draw(canvas);
             }
 
-            canvas.drawText(String.valueOf(score), 500, 500, scoreStyle);
+            canvas.drawText(String.valueOf(player.getScore()), (screenWidth / 2) - (screenWidth / 20), (int)Math.round(screenHeight * 0.045), scoreStyle);
 
         }
     }
@@ -169,7 +170,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
     }
 
-    public boolean checkCollision(BallSprite ball, BrickSprite[] bricks) {
+    public boolean checkCollision(BallSprite ball, BrickSprite[] bricks, Player p) {
 
         for (int i = 0; i < bricks.length; i++) {
             BrickSprite brick = bricks[i];
@@ -178,15 +179,14 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
                 brick.destroy();
-                score += bricks[i].getRewardPoints();
+                p.setScore(p.getScore() + bricks[i].getRewardPoints());
                 bricksDestroyed++;
                 // play brick sound
                 sounds.getBrickSound().start();
-                if(bricksDestroyed >= bricks.length){
-                    Toast toast = Toast.makeText(getContext(), score, Toast.LENGTH_LONG);
-                    toast.show();
+                 if(bricksDestroyed >= bricks.length){
                     bricksDestroyed = 0;
                 }
+
                 return true;
             }
         }
