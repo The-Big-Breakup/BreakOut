@@ -79,7 +79,7 @@ SoundFragment soundFragment;
             public void onClick(View v) {
                 if (getActivity() != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.ActivityMain, new ScoreFragment());
+                    ft.replace(R.id.ActivityMain, new ScoreFragment(getContext()));
                     ft.addToBackStack(null).commit();
                 }
             }

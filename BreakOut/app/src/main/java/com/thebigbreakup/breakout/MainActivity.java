@@ -11,12 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.thebigbreakup.breakout.database.DBHelper;
+
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        DBHelper db = new DBHelper(this);
+        db.setHighscore(5);
+
     }
 
 
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return true;
             case R.id.score_btn:
                 //Toast.makeText(this,"New Game clicked",Toast.LENGTH_SHORT).show();
-                ScoreFragment scoreFragment = new ScoreFragment();
+                ScoreFragment scoreFragment = new ScoreFragment(getBaseContext());
                 FragmentManager fm2 = getSupportFragmentManager();
                 FragmentTransaction ft2 = fm2.beginTransaction();
                 ft2.replace(R.id.ActivityMain, scoreFragment);
