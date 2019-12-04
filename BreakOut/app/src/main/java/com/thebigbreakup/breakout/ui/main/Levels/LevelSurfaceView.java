@@ -43,9 +43,6 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         //Set running to true to use in GameThread and start the new thread
         thread.setRunning(true);
         thread.start();
-
-        //TODO: add livedata with boolean, x and y
-        //TODO: add LevelOneLayout to add blocks
     }
 
     @Override
