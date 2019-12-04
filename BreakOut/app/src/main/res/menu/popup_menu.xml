@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/new_game_btn"
+        android:title="@string/new_game_btn">
+    </item>
+    <item
+        android:id="@+id/score_btn"
+        android:title="@string/score_btn">
+    </item>
+    <item
+        android:id="@+id/about_us_btn"
+        android:title="@string/about_us_btn">
+    </item>
+    <item
+        android:id="@+id/sound_setting_btn"
+        android:title="@string/sound_setting_btn">
+    </item>
+    <item
+        android:id="@+id/exit_btn"
+        android:title="@string/exit_btn">
+    </item>
+
+</menu>
