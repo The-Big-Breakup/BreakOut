@@ -37,8 +37,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private Sounds sounds;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    private int speedX = screenWidth / 80;
-    private int speedY = screenHeight / 160;
+    private int speedX = screenWidth / 50;
+    private int speedY = screenHeight / 100;
     private int paddleYPosition = (int)Math.round(screenHeight * 0.7);
     private BrickSprite[] bricks;
     private MotionEvent paddleMotion;
@@ -47,6 +47,11 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private Player player = new Player();
     private HighscoreModel highscoreModel = new HighscoreModel();
     private Paint scoreStyle = new Paint();
+    private Paint winStyle = new Paint();
+    private Paint loseStyle = new Paint();
+    private boolean win;
+    private boolean lose;
+    private boolean newHighscore;
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -58,6 +63,13 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         scoreStyle.setTextSize(screenWidth / 10);
         scoreStyle.setColor(getResources().getColor(R.color.colorAccent));
+
+        winStyle.setTextSize(screenWidth / 10);
+        winStyle.setColor(getResources().getColor(R.color.colorWinText));
+
+        loseStyle.setTextSize(screenWidth / 10);
+        loseStyle.setColor(getResources().getColor(R.color.colorLoseText));
+
 
     }
 
@@ -106,22 +118,26 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     public void update() {
 
-        checkPaddleCollision(paddleSprite, ballSprite);
+        lose = ballSprite.isLose();
 
-        ballSprite.moveX(speedX);
-        if (checkCollision(ballSprite, bricks, player)) {
-            ballSprite.invertXDirection();
-            //destroy current brick
-        }
+        if (!win && !lose) {
+            checkPaddleCollision(paddleSprite, ballSprite);
 
-        ballSprite.moveY(speedY);
-        if (checkCollision(ballSprite, bricks, player)) {
-            ballSprite.invertYDirection();
-            //destroy current brick
-        }
+            ballSprite.moveX(speedX);
+            if (checkCollision(ballSprite, bricks, player)) {
+                ballSprite.invertXDirection();
+                //destroy current brick
+            }
 
-        if(paddleMotion != null){
-            paddleSprite.update(paddleMotion);
+            ballSprite.moveY(speedY);
+            if (checkCollision(ballSprite, bricks, player)) {
+                ballSprite.invertYDirection();
+                //destroy current brick
+            }
+
+            if (paddleMotion != null) {
+                paddleSprite.update(paddleMotion);
+            }
         }
     }
 
@@ -139,6 +155,18 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             }
 
             canvas.drawText(String.valueOf(player.getScore()), (screenWidth / 2) - (screenWidth / 20), (int)Math.round(screenHeight * 0.045), scoreStyle);
+
+            if (win) {
+                canvas.drawText("You won!", (screenWidth / 4), screenHeight / 2, winStyle);
+                updateHighscore(player.getScore());
+            }
+            if (lose) {
+                canvas.drawText("You suck!", (screenWidth / 4), screenHeight / 2, loseStyle);
+                updateHighscore(player.getScore());
+            }
+            if (newHighscore) {
+                canvas.drawText("New highscore!", (screenWidth / 4), (screenHeight / 2) + (screenHeight / 10), winStyle);
+            }
 
         }
     }
@@ -184,7 +212,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 // play brick sound
                 sounds.getBrickSound().start();
                  if(bricksDestroyed >= bricks.length){
+                     Log.d("christian", "checkCollision: win");
                     bricksDestroyed = 0;
+                    win = true;
                 }
 
                 return true;
@@ -220,6 +250,13 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 break;
         }
         return true;
+    }
+
+    public void updateHighscore(int score) {
+        if (score > db.getHighscore()) {
+            db.setHighscore(score);
+            newHighscore = true;
+        }
     }
 
 }
