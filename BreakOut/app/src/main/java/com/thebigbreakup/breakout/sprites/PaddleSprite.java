@@ -39,7 +39,6 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
         paddleBounds[i] = new Rect();
         paddleBounds[i].set(currentPosX, this.posY, (currentPosX + boundWidth), (posY + this.height));
     }
-
 }
 
     public void drawPaddle(Canvas canvas) {
@@ -55,22 +54,22 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
             int currentPosX = this.posX + i * boundWidth;
             paddleBounds[i].set(currentPosX, this.posY, (currentPosX + boundWidth), (posY + this.height));
         }
-
     }
-
-    public void setMovementState(int state){
-    paddleMoving = state;
-    }
-
 
     public void update (MotionEvent m){
+        int paddlePosition;
+        if((int)m.getX() > width / 2) {
+            paddlePosition = (int)m.getX() - width / 2;
+        } else {
+            paddlePosition = 0;
+        }
 
-        int paddlePosition = (int)m.getX() - width/2;
         if(paddlePosition > screenWidth - width){
             paddlePosition = screenWidth - width;
-        }else if(paddlePosition + width/2 < 0){
+        }else if(paddlePosition + width / 2 < 0){
             paddlePosition = screenWidth + width;
         }
+
         if (paddleMoving == left) {
             if (posX >= 0) {
                 posX = paddlePosition;//paddleSpeedFactor / fps;
@@ -79,6 +78,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
                 posX = 0;
             }
         }
+
         if (paddleMoving == right) {
             if(posX + width <= screenWidth) {
                 posX = paddlePosition;
@@ -87,6 +87,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
              posX = 0;
             }
         }
+    }
+
+    public void setMovementState(int state){
+        paddleMoving = state;
     }
 
     public int getX() {
