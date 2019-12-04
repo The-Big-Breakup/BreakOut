@@ -150,4 +150,8 @@ public class BallSprite {
     public int getyPosition() {
         return yPosition;
     }
+
+    public boolean isxDirLeft() {
+        return xDirLeft;
+    }
 }
