@@ -34,7 +34,7 @@ SoundFragment soundFragment;
 
         b1 = v.findViewById(R.id.new_game_btn);
         b2 = v.findViewById(R.id.about_us_btn);
-        b3 = v.findViewById(R.id.exit_btn);
+        // b3 = v.findViewById(R.id.exit_btn);
         b4 = v.findViewById(R.id.score_btn);
         b5 = v.findViewById(R.id.sound_setting_btn);
 
@@ -66,12 +66,15 @@ SoundFragment soundFragment;
         });
 
 
+        /*
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     System.exit(0);
             }
         });
+
+         */
 
 
         b4.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +83,7 @@ SoundFragment soundFragment;
                 if (getActivity() != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.ActivityMain, new ScoreFragment(getContext()));
-                    ft.addToBackStack(null).commit();
+                    ft.commit();
                 }
             }
         });
