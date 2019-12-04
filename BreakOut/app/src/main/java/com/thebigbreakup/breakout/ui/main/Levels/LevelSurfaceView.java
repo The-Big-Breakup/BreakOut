@@ -7,12 +7,24 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.thebigbreakup.breakout.GameThread;
+import com.thebigbreakup.breakout.Player;
 import com.thebigbreakup.breakout.R;
+import com.thebigbreakup.breakout.Sounds;
+import com.thebigbreakup.breakout.database.DBHelper;
+import com.thebigbreakup.breakout.database.Models.HighscoreModel;
 import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.BrickSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
@@ -22,11 +34,19 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private GameThread thread;
     private BallSprite ballSprite;
     private PaddleSprite paddleSprite;
+    private Sounds sounds;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    //private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    private int speedX = 5;
-    private int speedY = 20;
+    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private int speedX = screenWidth / 80;
+    private int speedY = screenHeight / 160;
+    private int paddleYPosition = (int)Math.round(screenHeight * 0.7);
     private BrickSprite[] bricks;
+    private MotionEvent paddleMotion;
+    private int bricksDestroyed = 0;
+    private DBHelper db = new DBHelper(getContext());
+    private Player player = new Player();
+    private HighscoreModel highscoreModel = new HighscoreModel();
+    private Paint scoreStyle = new Paint();
 
     public LevelSurfaceView(Context context) {
         super(context);
@@ -35,7 +55,12 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         thread = new GameThread(getHolder(), this);
         setFocusable(true);
+
+        scoreStyle.setTextSize(screenWidth / 10);
+        scoreStyle.setColor(getResources().getColor(R.color.colorAccent));
+
     }
+
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
@@ -48,10 +73,17 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
         ballSprite = new BallSprite(1000, 500);
-        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ball));
-        paddleSprite = new PaddleSprite(500, 500, BitmapFactory.decodeResource(getResources(), R.drawable.paddle));
+        ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ballpng));
+
+
+        paddleSprite = new PaddleSprite(500,paddleYPosition, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
+
         LevelOneLayout levelOneLayout = new LevelOneLayout();
         bricks = levelOneLayout.getBricks(getResources());
+
+        sounds = new Sounds(getContext());
+        sounds.getBackgroundMusic().start();
+        sounds.getBackgroundMusic().setLooping(true);
     }
 
     @Override
@@ -67,23 +99,30 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             }
             retry = false;
         }
+        // stop and release sounds
+        sounds.getBackgroundMusic().stop();
+        sounds.release();
     }
 
     public void update() {
+
+        checkPaddleCollision(paddleSprite, ballSprite);
+
         ballSprite.moveX(speedX);
-        if (checkCollision(ballSprite, bricks)) {
+        if (checkCollision(ballSprite, bricks, player)) {
             ballSprite.invertXDirection();
             //destroy current brick
         }
 
-
         ballSprite.moveY(speedY);
-        if (checkCollision(ballSprite, bricks)) {
+        if (checkCollision(ballSprite, bricks, player)) {
             ballSprite.invertYDirection();
             //destroy current brick
         }
-        
-        paddleSprite.update(60, screenWidth);
+
+        if(paddleMotion != null){
+            paddleSprite.update(paddleMotion);
+        }
     }
 
     @Override
@@ -99,11 +138,39 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 bricks[i].draw(canvas);
             }
 
+            canvas.drawText(String.valueOf(player.getScore()), (screenWidth / 2) - (screenWidth / 20), (int)Math.round(screenHeight * 0.045), scoreStyle);
 
         }
     }
 
-    public boolean checkCollision(BallSprite ball, BrickSprite[] bricks) {
+    public void checkPaddleCollision(PaddleSprite paddle, BallSprite ball) {
+        Rect ballBounds = ball.getBounds();
+        Rect[] paddleBoundsList = paddle.getPaddleBounds();
+
+        for (int i = 0; i < paddleBoundsList.length; i++) {
+
+            if (ballBounds.intersect(paddleBoundsList[i]) || ballBounds.contains(paddleBoundsList[i]) || paddleBoundsList[i].contains(ballBounds)) {
+                if (i == 0) {
+                    ball.invertYDirection();
+                    if (!ball.isxDirLeft()) {
+                        ball.invertXDirection();
+                    }
+                } else if (i == 1) {
+                    ball.invertYDirection();
+                } else if (i == 2){
+                    ball.invertYDirection();
+                    if (ball.isxDirLeft()) {
+                        ball.invertXDirection();
+                    }
+                }
+
+                // play paddle sound
+                sounds.getPaddleSound().start();
+            }
+        }
+    }
+
+    public boolean checkCollision(BallSprite ball, BrickSprite[] bricks, Player p) {
 
         for (int i = 0; i < bricks.length; i++) {
             BrickSprite brick = bricks[i];
@@ -112,11 +179,48 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             if (ballBounds.intersect(brickBounds) || ballBounds.contains(brickBounds) || brickBounds.contains(ballBounds)) {
                 brick.destroy();
+                p.setScore(p.getScore() + bricks[i].getRewardPoints());
+                bricksDestroyed++;
+                // play brick sound
+                sounds.getBrickSound().start();
+                 if(bricksDestroyed >= bricks.length){
+                    bricksDestroyed = 0;
+                }
+
                 return true;
             }
         }
+        //highscoreModel.setHighScore(highscoreModel.getHighScore() + bricks[i].getRewardPoints());
+        // save new highscore to database
+        //db.setHighscore(highscoreModel.getHighScore());
 
         return false;
 
     }
+
+    public boolean onTouchEvent(MotionEvent motion){
+        paddleMotion = motion;
+
+        switch(paddleMotion.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (paddleMotion.getX() == paddleSprite.getX()) {
+                    paddleSprite.setMovementState(paddleSprite.stopped);
+                } else if(paddleMotion.getX() < paddleSprite.getX())
+                {
+                    paddleSprite.setMovementState(paddleSprite.left);
+                }
+                else if(paddleMotion.getX() > paddleSprite.getX()){
+                    paddleSprite.setMovementState(paddleSprite.right);
+                    break;
+                }
+                break;
+
+            case MotionEvent.ACTION_UP:
+                paddleSprite.setMovementState(paddleSprite.stopped);
+                break;
+        }
+        return true;
+    }
+
 }
+

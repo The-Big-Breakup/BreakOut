@@ -1,15 +1,15 @@
 package com.thebigbreakup.breakout;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.thebigbreakup.breakout.database.DBHelper;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -17,9 +17,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        DBHelper db = new DBHelper(this);
+        db.setHighscore(5);
+
     }
-
-
 
     public void showmenu(View v)
     {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return true;
             case R.id.score_btn:
                 //Toast.makeText(this,"New Game clicked",Toast.LENGTH_SHORT).show();
-                ScoreFragment scoreFragment = new ScoreFragment();
+                ScoreFragment scoreFragment = new ScoreFragment(getBaseContext());
                 FragmentManager fm2 = getSupportFragmentManager();
                 FragmentTransaction ft2 = fm2.beginTransaction();
                 ft2.replace(R.id.ActivityMain, scoreFragment);
@@ -71,7 +73,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         }}
 
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
