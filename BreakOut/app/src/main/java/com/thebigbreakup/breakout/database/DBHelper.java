@@ -17,7 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private Context context;
 
 
-    public static final int HIGHSCORE = 0;
+    public static final int HIGHSCORE = 5;
     public static final String COLUMN_HIGHSCORE = "HighScore";
     public static final String TABLE_HIGHSCORE = "TableHighScore";
 
@@ -26,9 +26,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_HIGHSCORE + " (" +
                     COLUMN_HIGHSCORE + " HIGHSCORE" +
                     ")";
-
-
-
 
     public DBHelper(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -58,7 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (c != null) {
             c.moveToFirst();
-            highscoreModel = new HighscoreModel(c.getString(0));
+            highscoreModel = new HighscoreModel(c.getString(c.getColumnIndex(COLUMN_HIGHSCORE)));
             highScore = Integer.parseInt(highscoreModel.getHighScore());
         }
 
@@ -69,12 +66,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void setHighscore(int highScore){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues contentValues = new ContentValues();
+        /*ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_HIGHSCORE, highScore);
 
         db.close();
 
-        // db.execSQL("INSERT INTO " + TABLE_HIGHSCORE + "(" + COLUMN_HIGHSCORE + ")" + " VALUES " + highScore + ";");
+         */
+
+        db.execSQL("INSERT INTO " + TABLE_HIGHSCORE + "(" + COLUMN_HIGHSCORE + ")" + " VALUES " + highScore + ";");
     }
 
 }
