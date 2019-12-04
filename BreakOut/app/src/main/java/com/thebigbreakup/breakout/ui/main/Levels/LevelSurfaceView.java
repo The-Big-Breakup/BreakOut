@@ -32,8 +32,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private Sounds sounds;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    private int speedX = 10;
-    private int speedY = 20;
+    private int speedX = screenWidth / 80;
+    private int speedY = screenHeight / 160;
     private int paddleYPosition = (int)Math.round(screenHeight*0.7);
     private BrickSprite[] bricks;
     private MotionEvent paddleMotion;
@@ -142,10 +142,19 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         for (int i = 0; i < paddleBoundsList.length; i++) {
 
             if (ballBounds.intersect(paddleBoundsList[i]) || ballBounds.contains(paddleBoundsList[i]) || paddleBoundsList[i].contains(ballBounds)) {
-                // TODO fix the speedX
-                ballSprite.invertYDirection();
-                Log.d("christian", "checkPaddleCollision: true");
-                speedX = i - 2;
+                if (i == 0) {
+                    ball.invertYDirection();
+                    if (!ball.isxDirLeft()) {
+                        ball.invertXDirection();
+                    }
+                } else if (i == 1) {
+                    ball.invertYDirection();
+                } else if (i == 2){
+                    ball.invertYDirection();
+                    if (ball.isxDirLeft()) {
+                        ball.invertXDirection();
+                    }
+                }
 
                 // play paddle sound
                 sounds.getPaddleSound().start();
@@ -164,8 +173,6 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 brick.destroy();
                 score += bricks[i].getRewardPoints();
                 bricksDestroyed++;
-                Log.d("christian2", "checkCollision: true");
-                Log.d("christian2", "jahs" + score);
                 // play brick sound
                 sounds.getBrickSound().start();
                 if(bricksDestroyed >= bricks.length){
