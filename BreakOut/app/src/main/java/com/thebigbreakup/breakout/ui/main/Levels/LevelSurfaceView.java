@@ -157,15 +157,15 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             canvas.drawText(String.valueOf(player.getScore()), (screenWidth / 2) - (screenWidth / 20), (int)Math.round(screenHeight * 0.045), scoreStyle);
 
             if (win) {
-                canvas.drawText("You won!", (screenWidth / 4), screenHeight / 2, winStyle);
+                canvas.drawText(getContext().getString(R.string.text_winmessage), (screenWidth / 4), screenHeight / 2, winStyle);
                 updateHighscore(player.getScore());
             }
             if (lose) {
-                canvas.drawText("You suck!", (screenWidth / 4), screenHeight / 2, loseStyle);
+                canvas.drawText(getContext().getString(R.string.text_losemessage), (screenWidth / 4), screenHeight / 2, loseStyle);
                 updateHighscore(player.getScore());
             }
             if (newHighscore) {
-                canvas.drawText("New highscore!", (screenWidth / 4), (screenHeight / 2) + (screenHeight / 10), winStyle);
+                canvas.drawText(getContext().getString(R.string.text_newhighscore), (screenWidth / 4), (screenHeight / 2) + (screenHeight / 10), winStyle);
             }
 
         }

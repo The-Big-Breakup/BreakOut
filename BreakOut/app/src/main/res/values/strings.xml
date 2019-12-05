@@ -5,18 +5,21 @@
     <string name="new_game_btn">New Game</string>
     <string name="about_us_btn">About Us</string>
     <string name="exit_btn">Exit</string>
-    <string name="score_btn">High Score</string>
-    <string name="score_view">High Score : 100</string>
-    <string name="programers_names">Yahya Mohaied
+    <string name="score_btn" translatable="false">Highscore</string>
+    <string name="score_view" translatable="false">HighScore : 0</string>
+    <string name="programers_names" translatable="false">Yahya Mohaied
         Cyrille Ngide Kolle
         Roman Divkovic
         Timmy Olsson
         Eric Johansson
         Christian Järdeberg</string>
     <string name="sound_setting_btn">Setting</string>
-    <string name="play_sound">Play Sound</string>
-    <string name="stop_sound">Stop Sound</string>
+    <string name="play_sound">Play Music</string>
+    <string name="stop_sound">Stop Music</string>
     <string name="play_effect">Play Effects Sound</string>
     <string name="stop_effect">Stop Effects Sound</string>
+    <string name="text_winmessage">You Won!</string>
+    <string name="text_losemessage">You Suck!</string>
+    <string name="text_newhighscore">New Highscore!</string>
 
 </resources>
