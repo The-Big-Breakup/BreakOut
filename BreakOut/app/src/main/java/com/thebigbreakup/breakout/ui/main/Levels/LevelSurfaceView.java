@@ -94,8 +94,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         bricks = levelOneLayout.getBricks(getResources());
 
         sounds = new Sounds(getContext());
-        sounds.getBackgroundMusic().start();
-        sounds.getBackgroundMusic().setLooping(true);
+        sounds.playBackgroundMusic();
     }
 
     @Override
@@ -111,8 +110,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
             }
             retry = false;
         }
-        // stop and release sounds
-        sounds.getBackgroundMusic().stop();
+        // release sounds
         sounds.release();
     }
 
@@ -193,7 +191,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 }
 
                 // play paddle sound
-                sounds.getPaddleSound().start();
+                sounds.playPaddleSound();
             }
         }
     }
@@ -210,7 +208,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 p.setScore(p.getScore() + bricks[i].getRewardPoints());
                 bricksDestroyed++;
                 // play brick sound
-                sounds.getBrickSound().start();
+                sounds.playBrickSound();
                  if(bricksDestroyed >= bricks.length){
                      Log.d("christian", "checkCollision: win");
                     bricksDestroyed = 0;
