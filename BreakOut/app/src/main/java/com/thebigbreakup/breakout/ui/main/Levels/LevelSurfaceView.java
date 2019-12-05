@@ -40,6 +40,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private int speedX = screenWidth / 50;
     private int speedY = screenHeight / 100;
     private int paddleYPosition = (int)Math.round(screenHeight * 0.7);
+    private int paddleXPosition = (int)Math.round(screenWidth * 0.5);
     private BrickSprite[] bricks;
     private MotionEvent paddleMotion;
     private int bricksDestroyed = 0;
@@ -51,6 +52,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private Paint loseStyle = new Paint();
     private boolean win;
     private boolean lose;
+    private boolean start;
     private boolean newHighscore;
 
     public LevelSurfaceView(Context context) {
@@ -84,11 +86,11 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        ballSprite = new BallSprite(1000, 500);
+        ballSprite = new BallSprite(paddleYPosition - 50, paddleXPosition);
         ballSprite.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.ballpng));
 
 
-        paddleSprite = new PaddleSprite(500,paddleYPosition, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
+        paddleSprite = new PaddleSprite(paddleXPosition, paddleYPosition, BitmapFactory.decodeResource(getResources(), R.drawable.paddle) );
 
         LevelOneLayout levelOneLayout = new LevelOneLayout();
         bricks = levelOneLayout.getBricks(getResources());
@@ -120,14 +122,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
         lose = ballSprite.isLose();
 
-        if (!win && !lose) {
+        if (!win && !lose && start) {
             checkPaddleCollision(paddleSprite, ballSprite);
 
-            ballSprite.moveX(speedX);
-            if (checkCollision(ballSprite, bricks, player)) {
-                ballSprite.invertXDirection();
-                //destroy current brick
-            }
 
             ballSprite.moveY(speedY);
             if (checkCollision(ballSprite, bricks, player)) {
@@ -135,9 +132,19 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 //destroy current brick
             }
 
-            if (paddleMotion != null) {
-                paddleSprite.update(paddleMotion);
+            ballSprite.moveX(speedX);
+            if (checkCollision(ballSprite, bricks, player)) {
+                ballSprite.invertXDirection();
+                //destroy current brick
             }
+        }
+
+        if(!start){
+            ballSprite.setxPosition(paddleSprite.getX()  + paddleSprite.getWidth() / 2);
+        }
+
+        if (paddleMotion != null) {
+            paddleSprite.update(paddleMotion);
         }
     }
 
@@ -247,6 +254,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
             case MotionEvent.ACTION_UP:
                 paddleSprite.setMovementState(paddleSprite.stopped);
+                start = true;
                 break;
         }
         return true;

@@ -157,6 +157,10 @@ public class BallSprite {
         return yPosition;
     }
 
+    public void setxPosition(int xPosition) {
+        this.xPosition = xPosition;
+    }
+
     public boolean isxDirLeft() {
         return xDirLeft;
     }
