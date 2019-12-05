@@ -138,7 +138,7 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
 
         if(!start){
-            ballSprite.setxPosition(paddleSprite.getX()  + paddleSprite.getWidth() / 2);
+            ballSprite.setxPosition(paddleSprite.getX()  + paddleSprite.getWidth() / 2 - ballSprite.getBallSide() / 2);
         }
 
         if (paddleMotion != null && !win &&!lose) {

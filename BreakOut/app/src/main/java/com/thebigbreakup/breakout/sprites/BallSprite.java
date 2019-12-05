@@ -161,6 +161,10 @@ public class BallSprite {
         this.xPosition = xPosition;
     }
 
+    public int getBallSide() {
+        return ballSide;
+    }
+
     public boolean isxDirLeft() {
         return xDirLeft;
     }
@@ -169,3 +173,4 @@ public class BallSprite {
         return lose;
     }
 }
+
