@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_us_btn">Om Oss</string>
+    <string name="exit_btn">Avsluta</string>
+    <string name="hello_blank_fragment">Hej</string>
+    <string name="new_game_btn">Nytt Spel</string>
+    <string name="play_effect">Spela Effektljud</string>
+    <string name="play_sound">Spela Musik</string>
+    <string name="sound_setting_btn">Inställningar</string>
+    <string name="stop_effect">Stäng av Effektljud</string>
+    <string name="stop_sound">Stäng av Musik</string>
+    <string name="text_losemessage">Du suger!</string>
+    <string name="text_newhighscore">Nytt Highscore</string>
+    <string name="text_winmessage">Du vann!</string>
+</resources>

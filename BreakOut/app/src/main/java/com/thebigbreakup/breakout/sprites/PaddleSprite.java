@@ -8,15 +8,8 @@ import android.view.MotionEvent;
 
 public class PaddleSprite {
 
-
-
-    //TODO: set values to paddle (Width, height etc)
-    //TODO: make a shape and load it here to set design
-    //TODO: Move the paddle after the touchevent
-    //TODO: make the paddle return a value depending on where we hit it
-
 public final int stopped = 0;
-public final int left=1;
+public final int left = 1;
 public final int right = 2;
 private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 private int width = screenWidth / 5;
@@ -39,14 +32,13 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
     this.paddleSpeedFactor = 2500;
 
     // set up boundsArray
-    paddleBounds = new Rect[5];
+    paddleBounds = new Rect[3];
     int boundWidth = this.width / paddleBounds.length;
     for (int i = 0; i < paddleBounds.length; i++) {
         int currentPosX = this.posX + i * boundWidth;
         paddleBounds[i] = new Rect();
         paddleBounds[i].set(currentPosX, this.posY, (currentPosX + boundWidth), (posY + this.height));
     }
-
 }
 
     public void drawPaddle(Canvas canvas) {
@@ -62,22 +54,22 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
             int currentPosX = this.posX + i * boundWidth;
             paddleBounds[i].set(currentPosX, this.posY, (currentPosX + boundWidth), (posY + this.height));
         }
-
     }
-
-    public void setMovementState(int state){
-    paddleMoving = state;
-    }
-
 
     public void update (MotionEvent m){
+        int paddlePosition;
+        if((int)m.getX() > width / 2) {
+            paddlePosition = (int)m.getX() - width / 2;
+        } else {
+            paddlePosition = 0;
+        }
 
-        int paddlePosition = (int)m.getX();
         if(paddlePosition > screenWidth - width){
             paddlePosition = screenWidth - width;
-        }else if(paddlePosition < 0){
+        }else if(paddlePosition + width / 2 < 0){
             paddlePosition = screenWidth + width;
         }
+
         if (paddleMoving == left) {
             if (posX >= 0) {
                 posX = paddlePosition;//paddleSpeedFactor / fps;
@@ -86,6 +78,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
                 posX = 0;
             }
         }
+
         if (paddleMoving == right) {
             if(posX + width <= screenWidth) {
                 posX = paddlePosition;
@@ -94,6 +87,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
              posX = 0;
             }
         }
+    }
+
+    public void setMovementState(int state){
+        paddleMoving = state;
     }
 
     public int getX() {
