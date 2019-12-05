@@ -100,4 +100,8 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
     public Rect[] getPaddleBounds() {
         return paddleBounds;
     }
+
+    public int getWidth() {
+        return width;
+    }
 }
