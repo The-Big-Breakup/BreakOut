@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="about_us_btn">About Us</string>
+    <string name="exit_btn">Exit</string>
+    <string name="hello_blank_fragment">Hello</string>
+    <string name="new_game_btn">New Game</string>
+    <string name="play_effect">Play Effects Sound</string>
+    <string name="play_sound">Play Music</string>
+    <string name="sound_setting_btn">Settings</string>
+    <string name="stop_effect">Stop Effects Sound</string>
+    <string name="stop_sound">Stop Music</string>
+    <string name="text_losemessage">You Suck!</string>
+    <string name="text_newhighscore">New Highscore!</string>
+    <string name="text_winmessage">You Won!</string>
+</resources>
