@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import com.thebigbreakup.breakout.ui.main.Levels.LevelSurfaceView;
+
 /**
  * A class to create an animated ball object that moves on the canvas
  */
@@ -19,6 +21,7 @@ public class BallSprite {
     private int ballScaleFactor = 25;
     private int ballSide = screenWidth/ballScaleFactor;
     private Rect bounds;
+    private boolean lose;
 
     /**
      * Create the ball and set the starting position on the screen
@@ -41,9 +44,12 @@ public class BallSprite {
      * Checks if the ball collides with the top or bottom of the screen
      */
     private int checkCollideY(int speed) {
-        if (yPosition >= screenHeight - ballSide || yPosition <= 0) {
+        if (yPosition <= 0) {
             invertYDirection();
             return speed = invertSpeed(speed);
+        } else if (yPosition >= screenHeight - ballSide) {
+            lose = true;
+            return speed;
         }
         else {
             return speed;
@@ -153,5 +159,9 @@ public class BallSprite {
 
     public boolean isxDirLeft() {
         return xDirLeft;
+    }
+
+    public boolean isLose() {
+        return lose;
     }
 }
