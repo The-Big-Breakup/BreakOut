@@ -8,19 +8,17 @@ import android.view.MotionEvent;
 
 public class PaddleSprite {
 
-public final int stopped = 0;
-public final int left = 1;
-public final int right = 2;
+private final int STOPPED = 0;
+private final int LEFT = 1;
+private final int RIGHT = 2;
 private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 private int width = screenWidth / 5;
 private int height = width / 5;
 private int posX;
 private int posY;
-private int paddleSpeedFactor;
-private int paddleMoving = stopped;
+private int paddleMoving = STOPPED;
 private Bitmap bitmap;
 private Rect[] paddleBounds;
-
 
 public PaddleSprite(int posX, int posY, Bitmap bitmap){
     this.posX = posX;
@@ -28,8 +26,6 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 
     // set scaled bitmap
     this.bitmap=Bitmap.createScaledBitmap(bitmap,this.width,this.height,false);
-
-    this.paddleSpeedFactor = 2500;
 
     // set up boundsArray
     paddleBounds = new Rect[3];
@@ -56,7 +52,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
         }
     }
 
-    public void update (MotionEvent m){
+    public void update(MotionEvent m){
         int paddlePosition;
         if((int)m.getX() > width / 2) {
             paddlePosition = (int)m.getX() - width / 2;
@@ -70,7 +66,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
             paddlePosition = screenWidth + width;
         }
 
-        if (paddleMoving == left) {
+        if (paddleMoving == LEFT) {
             if (posX >= 0) {
                 posX = paddlePosition;//paddleSpeedFactor / fps;
             }
@@ -79,7 +75,7 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
             }
         }
 
-        if (paddleMoving == right) {
+        if (paddleMoving == RIGHT) {
             if(posX + width <= screenWidth) {
                 posX = paddlePosition;
             }
@@ -91,6 +87,18 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
 
     public void setMovementState(int state){
         paddleMoving = state;
+    }
+
+    public int getSTOPPED() {
+        return STOPPED;
+    }
+
+    public int getLEFT() {
+        return LEFT;
+    }
+
+    public int getRIGHT() {
+        return RIGHT;
     }
 
     public int getX() {

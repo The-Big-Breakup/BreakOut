@@ -1,18 +1,16 @@
-package com.thebigbreakup.breakout;
-
+package com.thebigbreakup.breakout.ui.main.MainMenu;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.thebigbreakup.breakout.R;
 
-public class SoundFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
     Button soundPlay;
     Button soundStop;
@@ -28,12 +26,10 @@ public class SoundFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sound, container, false);
 
-
         soundPlay = v.findViewById(R.id.sound_play);
         soundStop = v.findViewById(R.id.sound_stop);
         effectPlay = v.findViewById(R.id.effect_play);
         effectStop = v.findViewById(R.id.effect_stop);
-
 
         soundPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,11 +58,7 @@ public class SoundFragment extends Fragment {
             }
         });
 
-
         return v;
-
-
-
     }
 
     public void backgroundSoundPlay()
@@ -74,7 +66,6 @@ public class SoundFragment extends Fragment {
         mediaSound = MediaPlayer.create(this.getContext() ,R.raw.testm);
         mediaSound.start();
         mediaSound.setLooping(true);
-
     }
 
     public void backgroundSoundStop()

@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import com.thebigbreakup.breakout.ui.main.Levels.LevelSurfaceView;
-
 /**
  * A class to create an animated ball object that moves on the canvas
  */

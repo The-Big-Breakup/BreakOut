@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/fragment3"
-        android:name="com.thebigbreakup.breakout.MenuFragment"
+        android:name="com.thebigbreakup.breakout.ui.main.MainMenu.MainMenuFragment"
         android:layout_width="match_parent"
         android:layout_height="650dp"
         android:layout_below="@+id/menu_view"

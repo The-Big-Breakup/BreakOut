@@ -2,7 +2,6 @@ package com.thebigbreakup.breakout.ui.main.Levels;
 
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BrickSprite;
 
@@ -33,27 +32,4 @@ public class LevelOneLayout {
 
         return bricks;
     }
-
-    public boolean checkCollision(int pixelX, int pixelY) {
-        boolean collision = false;
-        int collisionCounter = 0;
-
-        for (int i = 0; i < bricks.length; i++) {
-            if (bricks[i].checkCollision(pixelX, pixelY)) {
-                collisionCounter++;
-            }
-        }
-
-        if (collisionCounter > 0) {
-            collision = true;
-        }
-
-        return collision;
-
-    }
-
-    //TODO observe LiveData from LevelSurfaceView
-    //TODO when LiveData tells that a brick is hit by ball, loop through every brick and call CheckCollision-method
-
-
 }

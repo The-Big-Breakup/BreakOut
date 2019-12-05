@@ -1,4 +1,4 @@
-package com.thebigbreakup.breakout;
+package com.thebigbreakup.breakout.Models;
 
 public class Player {
 

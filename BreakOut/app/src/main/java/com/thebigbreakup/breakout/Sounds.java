@@ -3,7 +3,6 @@ package com.thebigbreakup.breakout;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -31,7 +30,6 @@ public class Sounds {
 
         this.context = context;
         this.init();
-
     }
 
     /**
@@ -50,6 +48,7 @@ public class Sounds {
         this.backgroundMusicOn = preferences.getBoolean(MUSIC_ON_KEY, true);
         // set sound fx on or off
         this.soundFXOn = preferences.getBoolean(FX_ON_KEY, true);
+
     }
 
     /**

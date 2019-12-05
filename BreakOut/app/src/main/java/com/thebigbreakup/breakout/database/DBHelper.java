@@ -77,7 +77,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return highScore;
-
     }
 
     /**
@@ -94,7 +93,5 @@ public class DBHelper extends SQLiteOpenHelper {
         } else {
             db.execSQL("INSERT INTO " + TABLE_HIGHSCORE + "(" + COLUMN_HIGHSCORE + ")" + " VALUES (" + highScore + ");");
         }
-
     }
-
 }

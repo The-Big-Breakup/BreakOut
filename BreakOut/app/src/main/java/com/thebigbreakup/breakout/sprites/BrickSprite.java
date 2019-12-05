@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import androidx.constraintlayout.solver.widgets.Rectangle;
-
 /**
  * A class that represents a Brick in the game
  */
@@ -50,52 +48,6 @@ public class BrickSprite {
         }
 
     }
-
-    public boolean checkCollision(int pixelX, int pixelY) {
-
-        if (pixelX >= xPos
-                && pixelX <= xPos + width
-                && pixelY >= yPos
-                && pixelY <= yPos + height) {
-            this.destroyed = true;
-            return true;
-        }
-        return false;
-    }
-
-    /*
-    public int checkCollision(int pixelX, int pixelY) {
-        if(checkCollisionX(pixelX)) {
-            this.destroyed = true;
-            return 1;
-        }
-
-        if (checkCollisionY(pixelY)) {
-            this.destroyed = true;
-            return 2;
-        }
-
-        return 0;
-    }
-
-    public boolean checkCollisionX(int pixelX) {
-
-        if (pixelX >= xPos && pixelX <= xPos + width) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean checkCollisionY(int pixelY) {
-
-        if (pixelY >= yPos && pixelY <= yPos + height) {
-            return true;
-        }
-        return false;
-
-    }
-
-     */
 
     public void destroy() {
         this.destroyed = true;

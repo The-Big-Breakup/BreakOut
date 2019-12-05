@@ -1,31 +1,23 @@
-package com.thebigbreakup.breakout;
+package com.thebigbreakup.breakout.ui.main.MainMenu;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.thebigbreakup.breakout.ui.main.Levels.LevelSurfaceView;
+import com.thebigbreakup.breakout.R;
 
+public class MainMenuFragment extends Fragment {
 
-public class MenuFragment extends Fragment {
-
-SoundFragment soundFragment;
     Button b1;
     Button b2;
-    Button b3;
+    //Button b3;
     Button b4;
     Button b5;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +30,6 @@ SoundFragment soundFragment;
         b4 = v.findViewById(R.id.score_btn);
         b5 = v.findViewById(R.id.sound_setting_btn);
 
-
-
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,9 +37,6 @@ SoundFragment soundFragment;
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.ActivityMain, new NewGameFragment());
                     ft.commit();
-
-
-
             }
 
         });
@@ -65,17 +52,15 @@ SoundFragment soundFragment;
             }
         });
 
-
         /*
+        // Exitbutton, removed because bugs
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     System.exit(0);
             }
         });
-
          */
-
 
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,15 +78,12 @@ SoundFragment soundFragment;
             public void onClick(View v) {
                 if (getActivity() != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.ActivityMain, new SoundFragment());
+                    ft.replace(R.id.ActivityMain, new SettingsFragment());
                     ft.commit();
                 }
             }
         });
 
         return v;
-
-
-
     }
 }

@@ -8,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.thebigbreakup.breakout.ui.main.MainMenu.AboutUsFragment;
+import com.thebigbreakup.breakout.ui.main.MainMenu.NewGameFragment;
+import com.thebigbreakup.breakout.ui.main.MainMenu.ScoreFragment;
+import com.thebigbreakup.breakout.ui.main.MainMenu.SettingsFragment;
+
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     @Override
@@ -28,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (item.getItemId())
         {
             case R.id.new_game_btn:
-                //Toast.makeText(this,"New Game clicked",Toast.LENGTH_SHORT).show();
                 NewGameFragment newgamefragment = new NewGameFragment();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
@@ -36,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 ft.commit();
                 return true;
             case R.id.score_btn:
-                //Toast.makeText(this,"New Game clicked",Toast.LENGTH_SHORT).show();
                 ScoreFragment scoreFragment = new ScoreFragment(getBaseContext());
                 FragmentManager fm2 = getSupportFragmentManager();
                 FragmentTransaction ft2 = fm2.beginTransaction();
@@ -51,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 ft1.commit();
                 return true;
             case R.id.sound_setting_btn:
-                SoundFragment soundFragment = new SoundFragment();
+                SettingsFragment settingsFragment = new SettingsFragment();
                 FragmentManager fm4 = getSupportFragmentManager();
                 FragmentTransaction ft4 = fm4.beginTransaction();
-                ft4.replace(R.id.ActivityMain, soundFragment);
+                ft4.replace(R.id.ActivityMain, settingsFragment);
                 ft4.commit();
                 return true;
             case R.id.exit_btn:
