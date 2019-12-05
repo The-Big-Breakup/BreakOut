@@ -11,8 +11,8 @@
         android:id="@+id/menu_view"
         android:layout_width="25dp"
         android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/menuwhite"
         android:contentDescription="@string/app_name"
         android:onClick="showmenu"
@@ -21,10 +21,9 @@
     <Button
         android:id="@+id/sound_play"
         style="@style/btnStyle"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
         android:layout_below="@+id/menu_view"
-        android:layout_centerVertical="true"
         android:text="@string/play_sound" />
 
     <Button

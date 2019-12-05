@@ -3,14 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MenuFragment">
 
+
+    <ImageView
+        android:id="@+id/menu_view"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/menuwhite"
+        android:contentDescription="@string/app_name"
+        android:onClick="showmenu"
+        />
 
     <Button
         android:id="@+id/new_game_btn"
         style="@style/btnStyle"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/menu_view"
         android:text="@string/new_game_btn" />
 
     <Button
