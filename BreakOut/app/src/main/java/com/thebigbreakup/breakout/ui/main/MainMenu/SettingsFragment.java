@@ -7,24 +7,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.thebigbreakup.breakout.R;
 
+/**
+ * The fragment for the settings in the app
+ */
 public class SettingsFragment extends Fragment {
 
-    Button soundPlay;
-    Button soundStop;
-    Button effectPlay;
-    Button effectStop;
+    private Button soundPlay;
+    private Button soundStop;
+    private Button effectPlay;
+    private Button effectStop;
 
-    MediaPlayer mediaSound;
-    MediaPlayer mediaEffectPaddle;
-    MediaPlayer mediaEffectBrick;
+    private MediaPlayer mediaSound;
+    private MediaPlayer mediaEffectPaddle;
+    private MediaPlayer mediaEffectBrick;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_sound, container, false);
+        View v = inflater.inflate(R.layout.fragment_settings, container, false);
 
         soundPlay = v.findViewById(R.id.sound_play);
         soundStop = v.findViewById(R.id.sound_stop);
@@ -61,6 +63,9 @@ public class SettingsFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Plays the background music
+     */
     public void backgroundSoundPlay()
     {
         mediaSound = MediaPlayer.create(this.getContext() ,R.raw.testm);
@@ -68,27 +73,43 @@ public class SettingsFragment extends Fragment {
         mediaSound.setLooping(true);
     }
 
+    /**
+     * Stops the background music
+     */
     public void backgroundSoundStop()
     {
         mediaSound.stop();
     }
 
+    /**
+     * Starts the sound on the paddlecollision
+     */
     public void paddleSoundPlay()
     {
         mediaEffectPaddle = MediaPlayer.create(this.getContext() ,R.raw.testm);
         mediaEffectPaddle.start();
     }
 
+    /**
+     * Stops the sound of the paddlecollision
+     */
     public void paddleSoundStop()
     {
         mediaEffectPaddle.stop();
     }
+
+    /**
+     * Plays the sound on collision of the brick
+     */
     public void brickSoundPlay()
     {
         mediaEffectBrick = MediaPlayer.create(this.getContext() ,R.raw.testm);
         mediaEffectBrick.start();
     }
 
+    /**
+     * Stops the sound on collision of the brick
+     */
     public void brickSoundStop()
     {
         mediaEffectBrick.stop();

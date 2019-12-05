@@ -1,5 +1,8 @@
 package com.thebigbreakup.breakout.database.Models;
 
+/**
+ * The model for the highscore that is stored in the database
+ */
 public class HighscoreModel {
 
     private String highScore;

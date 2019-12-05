@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.sprites.BrickSprite;
 
+/**
+ * A class that sets up the layouts for level one
+ */
 public class LevelOneLayout {
 
     private BrickSprite[] bricks;
@@ -17,6 +20,11 @@ public class LevelOneLayout {
     private int padding = 2;
     private int currentBrickId = 0;
 
+    /**
+     * Creates the bricks from a field of bricks
+     * @param resources
+     * @return An array of bricks
+     */
     public BrickSprite[] getBricks(Resources resources) {
         bricks = new BrickSprite[64];
 

@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.thebigbreakup.breakout.R;
 
+/**
+ * The main menu of the app
+ */
 public class MainMenuFragment extends Fragment {
 
     Button b1;

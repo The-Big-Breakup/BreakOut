@@ -6,6 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+/**
+ * A class that represents the paddle the user can move
+ */
 public class PaddleSprite {
 
 private final int STOPPED = 0;
@@ -20,7 +23,13 @@ private int paddleMoving = STOPPED;
 private Bitmap bitmap;
 private Rect[] paddleBounds;
 
-public PaddleSprite(int posX, int posY, Bitmap bitmap){
+    /**
+     * Constructor for the paddle
+     * @param posX Initial paddle position
+     * @param posY Initial paddle position
+     * @param bitmap The image that the paddle is drawn from
+     */
+    public PaddleSprite(int posX, int posY, Bitmap bitmap){
     this.posX = posX;
     this.posY = posY;
 
@@ -37,6 +46,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
     }
 }
 
+    /**
+     * Draws the paddle on the canvas
+     * @param canvas
+     */
     public void drawPaddle(Canvas canvas) {
         if(posX > screenWidth - width){
             posX = screenWidth - width;
@@ -52,6 +65,10 @@ public PaddleSprite(int posX, int posY, Bitmap bitmap){
         }
     }
 
+    /**
+     * Updates the position of the paddle after the touch on the screen
+     * @param m The position that is touched on the screen
+     */
     public void update(MotionEvent m){
         int paddlePosition;
         if((int)m.getX() > width / 2) {

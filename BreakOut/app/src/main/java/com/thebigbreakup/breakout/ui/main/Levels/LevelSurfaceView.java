@@ -19,6 +19,9 @@ import com.thebigbreakup.breakout.sprites.BallSprite;
 import com.thebigbreakup.breakout.sprites.BrickSprite;
 import com.thebigbreakup.breakout.sprites.PaddleSprite;
 
+/**
+ * This class is the canvas and view that draws all objects on a canvas
+ */
 public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     private GameThread thread;
@@ -44,6 +47,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private boolean start;
     private boolean newHighscore;
 
+    /**
+     * Constructor for the surfaceview
+     * @param context
+     */
     public LevelSurfaceView(Context context) {
         super(context);
 
@@ -102,6 +109,9 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         sounds.release();
     }
 
+    /**
+     * Update is called to update the canvas with all the objects
+     */
     public void update() {
 
         lose = ballSprite.isLose();
@@ -157,6 +167,11 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
     }
 
+    /**
+     * Checks if a balls bounding rect is intersecting with the paddles bounding rect
+     * @param paddle
+     * @param ball
+     */
     public void checkPaddleCollision(PaddleSprite paddle, BallSprite ball) {
         Rect ballBounds = ball.getBounds();
         Rect[] paddleBoundsList = paddle.getPaddleBounds();
@@ -184,6 +199,13 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
     }
 
+    /**
+     * Checks if a balls bounding rect is intersecting with the bricks bounding rect
+     * @param ball
+     * @param bricks
+     * @param p The player that gets the score from the brick
+     * @return A boolean used to invert the balls trajectory, true if a collision occurs
+     */
     public boolean checkCollision(BallSprite ball, BrickSprite[] bricks, Player p) {
 
         for (BrickSprite brick : bricks) {
@@ -194,10 +216,8 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 brick.destroy();
                 p.setScore(p.getScore() + brick.getRewardPoints());
                 bricksDestroyed++;
-                // play brick sound
                 sounds.playBrickSound();
                 if (bricksDestroyed >= bricks.length) {
-                    Log.d("christian", "checkCollision: win");
                     bricksDestroyed = 0;
                     win = true;
                 }
@@ -209,6 +229,11 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         return false;
     }
 
+    /**
+     * Checks if there is any user input on the screen and sets the paddle position to that pixel
+     * @param motion The position of the touch event
+     * @return
+     */
     public boolean onTouchEvent(MotionEvent motion){
         paddleMotion = motion;
 
@@ -235,6 +260,10 @@ public class LevelSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         return true;
     }
 
+    /**
+     * Updates the highscore in the database
+     * @param score
+     */
     public void updateHighscore(int score) {
         if (score > db.getHighscore()) {
             db.setHighscore(score);

@@ -13,6 +13,9 @@ import com.thebigbreakup.breakout.ui.main.MainMenu.NewGameFragment;
 import com.thebigbreakup.breakout.ui.main.MainMenu.ScoreFragment;
 import com.thebigbreakup.breakout.ui.main.MainMenu.SettingsFragment;
 
+/**
+ * The activity of the app
+ */
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     @Override
@@ -21,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.main_activity);
     }
 
+    /**
+     * Shows the hamburger menu in the top left corner
+     * @param v
+     */
     public void showmenu(View v) {
         PopupMenu popup = new PopupMenu(this,v);
         popup.setOnMenuItemClickListener(this);

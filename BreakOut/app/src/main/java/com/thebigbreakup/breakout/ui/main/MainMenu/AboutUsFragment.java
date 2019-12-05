@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 import com.thebigbreakup.breakout.R;
 
+/**
+ * A fragment that shows information about the app
+ */
 public class AboutUsFragment extends Fragment {
 
     @Override

@@ -41,6 +41,10 @@ public class BrickSprite {
         this.image = Bitmap.createScaledBitmap(image, this.width, this.height, false);
     }
 
+    /**
+     * Draws a brick
+     * @param canvas
+     */
     // If the Brick is not destroyed - draw the Brick
     public void draw(Canvas canvas) {
         if(!destroyed) {
@@ -49,11 +53,18 @@ public class BrickSprite {
 
     }
 
+    /**
+     * Destroys the brick and removes the collision bounds
+     */
     public void destroy() {
         this.destroyed = true;
         this.bounds.setEmpty();
     }
 
+    /**
+     * Set the image of the block
+     * @param image
+     */
     public void setImage(Bitmap image) {
         this.image = image;
     }

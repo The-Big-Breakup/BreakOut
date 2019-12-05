@@ -13,12 +13,19 @@ import android.widget.TextView;
 import com.thebigbreakup.breakout.R;
 import com.thebigbreakup.breakout.database.DBHelper;
 
+/**
+ * A fragment that shows the highscore from the database
+ */
 public class ScoreFragment extends Fragment {
 
     private TextView highScoreTV;
     private DBHelper db;
     private int highscoreholder;
-    
+
+    /**
+     * Constructor for the scoreFragment
+     * @param c
+     */
     public ScoreFragment(Context c){
         db = new DBHelper(c);
     }

@@ -7,16 +7,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.thebigbreakup.breakout.database.Models.HighscoreModel;
 
+/**
+ * The helper class that handles all databasequeries
+ */
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "breakOut.db";
     private static final int DATABASE_VERSION = 1;
-
-
     private static final int HIGHSCORE = 0;
     private static final String COLUMN_HIGHSCORE = "HighScore";
     private static final String TABLE_HIGHSCORE = "TableHighScore";
-
 
     private static final String TABLE_HIGHSCORE_CREATE =
             "CREATE TABLE " + TABLE_HIGHSCORE + " (" +

@@ -78,6 +78,9 @@ public class Sounds {
 
     }
 
+    /**
+     * Plays background music if shared preferences setting is set to true
+     */
     public void playBackgroundMusic() {
         if (preferences.getBoolean(MUSIC_ON_KEY, true)) {
             this.backgroundMusic.start();
@@ -85,12 +88,18 @@ public class Sounds {
         }
     }
 
+    /**
+     * Plays paddle sound if shared preferences setting is set to true
+     */
     public void playPaddleSound() {
         if (preferences.getBoolean(FX_ON_KEY, true)) {
             this.paddleSound.start();
         }
     }
 
+    /**
+     * Plays brick sound if shared preferences setting is set to true
+     */
     public void playBrickSound() {
         if (preferences.getBoolean(FX_ON_KEY, true)) {
             this.brickSound.start();

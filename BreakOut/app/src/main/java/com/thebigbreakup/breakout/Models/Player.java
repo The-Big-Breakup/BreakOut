@@ -1,5 +1,8 @@
 package com.thebigbreakup.breakout.Models;
 
+/**
+ * A class that represents the player
+ */
 public class Player {
 
     private int score = 0;

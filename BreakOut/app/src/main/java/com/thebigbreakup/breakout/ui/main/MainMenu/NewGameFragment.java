@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.thebigbreakup.breakout.ui.main.Levels.LevelSurfaceView;
 
+/**
+ * A fragment that returns LevelSurfaceView
+ */
 public class NewGameFragment extends Fragment {
 
     @Override

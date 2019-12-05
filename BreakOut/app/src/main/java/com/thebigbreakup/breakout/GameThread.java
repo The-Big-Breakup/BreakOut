@@ -5,6 +5,9 @@ import android.view.SurfaceHolder;
 
 import com.thebigbreakup.breakout.ui.main.Levels.LevelSurfaceView;
 
+/**
+ * The thread that runs the surfaceview in 60fps
+ */
 public class GameThread extends Thread {
 
     private SurfaceHolder surfaceHolder;
@@ -14,6 +17,11 @@ public class GameThread extends Thread {
     private int targetFPS = 60;
     private double averageFPS;
 
+    /**
+     * Constructor of the gamethread
+     * @param surfaceHolder
+     * @param levelSurfaceView
+     */
     public GameThread(SurfaceHolder surfaceHolder, LevelSurfaceView levelSurfaceView) {
 
         super();
