@@ -1,19 +1,27 @@
 package com.thebigbreakup.breakout;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A class that handles the sounds for the game
  */
 public class Sounds {
 
-    Context context;
+    private Context context;
+    private SharedPreferences preferences;
+    private static final String PREF_KEY = "myPreferences";
+    private static final String MUSIC_ON_KEY = "backgroundMusicOn";
+    private static final String FX_ON_KEY = "soundFXOn";
     private MediaPlayer paddleSound;
     private MediaPlayer ballSound;
     private MediaPlayer brickSound;
     private MediaPlayer backgroundMusic;
-
+    private boolean backgroundMusicOn;
+    private boolean soundFXOn;
 
     /**
      * Constructor for the Sounds class, calls the init-method
@@ -22,18 +30,26 @@ public class Sounds {
     public Sounds(Context context) {
 
         this.context = context;
-        init();
+        this.init();
 
     }
 
     /**
      * Set up the sound file for each sound
+     * And get sound settings from shared preferences
      */
     public void init() {
-        paddleSound = MediaPlayer.create(this.context ,R.raw.paddle_sound);
-        ballSound = MediaPlayer.create(this.context ,R.raw.ball_sound);
-        brickSound = MediaPlayer.create(this.context ,R.raw.paddle_sound);
-        backgroundMusic = MediaPlayer.create(this.context ,R.raw.background_music);
+        this.paddleSound = MediaPlayer.create(this.context ,R.raw.paddle_sound);
+        this.ballSound = MediaPlayer.create(this.context ,R.raw.ball_sound);
+        this.brickSound = MediaPlayer.create(this.context ,R.raw.paddle_sound);
+        this.backgroundMusic = MediaPlayer.create(this.context ,R.raw.background_music);
+
+        // Get shared preferences
+        this.preferences = context.getSharedPreferences(PREF_KEY, MODE_PRIVATE);
+        // set background music on or off
+        this.backgroundMusicOn = preferences.getBoolean(MUSIC_ON_KEY, true);
+        // set sound fx on or off
+        this.soundFXOn = preferences.getBoolean(FX_ON_KEY, true);
     }
 
     /**
@@ -42,15 +58,15 @@ public class Sounds {
      */
     public void release() {
 
-        paddleSound.release();
-        ballSound.release();
-        brickSound.release();
-        backgroundMusic.release();
+        this.paddleSound.release();
+        this.ballSound.release();
+        this.brickSound.release();
+        this.backgroundMusic.release();
 
-        paddleSound = null;
-        ballSound = null;
-        brickSound = null;
-        backgroundMusic = null;
+        this.paddleSound = null;
+        this.ballSound = null;
+        this.brickSound = null;
+        this.backgroundMusic = null;
 
     }
 
@@ -59,16 +75,31 @@ public class Sounds {
      */
     public void restart() {
 
-        init();
+        this.init();
 
+    }
+
+    public void playBackgroundMusic() {
+        if (preferences.getBoolean(MUSIC_ON_KEY, true)) {
+            this.backgroundMusic.start();
+            this.backgroundMusic.setLooping(true);
+        }
+    }
+
+    public void playPaddleSound() {
+        if (preferences.getBoolean(FX_ON_KEY, true)) {
+            this.paddleSound.start();
+        }
+    }
+
+    public void playBrickSound() {
+        if (preferences.getBoolean(FX_ON_KEY, true)) {
+            this.brickSound.start();
+        }
     }
 
     public MediaPlayer getPaddleSound() {
         return paddleSound;
-    }
-
-    public MediaPlayer getBallSound() {
-        return ballSound;
     }
 
     public MediaPlayer getBrickSound() {
